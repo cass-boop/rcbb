@@ -115,6 +115,17 @@ const upcomingEvents = [
     address: "Downtown Edmonton",
     description: "Outdoor summer concert as part of the TD Edmonton International Jazz Festival. Free admission!",
     ticketLink: ""
+  },
+
+  {
+    id: 5,
+    date: "2026-01-28",
+    displayDate: "Monday, January 28, 2026",
+    time: "6:00 PM",
+    venue: "Edmonton Jazz Festival",
+    address: "Downtown Edmonton",
+    description: "Outdoor summer concert as part of the TD Edmonton International Jazz Festival. Free admission!",
+    ticketLink: ""
   }
 
   // -------------------------------------------------------------------------
