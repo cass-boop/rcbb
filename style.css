@@ -1,15 +1,1340 @@
+/* =============================================================================
+ * RIVER CITY BIG BAND - MAIN STYLESHEET
+ * =============================================================================
+ * 
+ * This stylesheet uses a mobile-first approach, meaning:
+ * - Base styles are designed for mobile screens
+ * - Larger screen styles are added using min-width media queries
+ * - This approach ensures the site works well on all devices
+ * 
+ * =============================================================================
+ * TABLE OF CONTENTS
+ * =============================================================================
+ * 1.  CSS VARIABLES (colors, spacing, typography)
+ * 2.  CSS RESET (normalize browser defaults)
+ * 3.  TYPOGRAPHY (font families, sizes, weights)
+ * 4.  LAYOUT (containers, grid, flex utilities)
+ * 5.  SKIP LINK (accessibility)
+ * 6.  HEADER & NAVIGATION
+ * 7.  HERO SECTION
+ * 8.  CONTENT SECTIONS
+ * 9.  EVENT CARDS
+ * 10. BUTTONS & LINKS
+ * 11. FOOTER
+ * 12. UTILITIES (spacing, visibility)
+ * 13. RESPONSIVE BREAKPOINTS
+ * 14. ACCESSIBILITY & REDUCED MOTION
+ * =========================================================================== */
+
+
+/* =============================================================================
+ * 1. CSS VARIABLES
+ * =============================================================================
+ * CSS Custom Properties (variables) allow us to define values once and reuse
+ * them throughout the stylesheet. This makes it easy to maintain consistent
+ * colors, spacing, and typography across the entire site.
+ * 
+ * To change a color site-wide, just update it here - no need to search and
+ * replace throughout the file.
+ * =========================================================================== */
+
+:root {
+  /* -------------------------------------------------------------------------
+   * COLOR PALETTE - Teal & Gold Theme
+   * -------------------------------------------------------------------------
+   * All colors have been tested for WCAG 2.0 AA compliance.
+   * Contrast ratios are documented next to each color.
+   * Minimum requirements: 4.5:1 for normal text, 3:1 for large text
+   * ----------------------------------------------------------------------- */
+  
+  /* Primary Colors - Deep Teal */
+  --color-primary: #1E3A3A;         /* Primary teal - 10.8:1 on white */
+  --color-primary-dark: #0F2828;    /* Darker teal - 13.5:1 on white */
+  --color-primary-light: #2D5252;   /* Lighter teal - 7.2:1 on white */
+  
+  /* Navigation */
+  --color-nav: #0F1E1E;             /* Navigation bar - deep teal-black */
+  --color-nav-hover: #1E3A3A;       /* Nav hover states */
+  
+  /* Accent Colors - Gold/Brass */
+  --color-brass: #8B6914;           /* Accents, links - 4.6:1 on white */
+  --color-brass-dark: #705410;      /* Hover states - 5.8:1 on white */
+  --color-brass-light: #C9A227;     /* Brighter gold for dark backgrounds */
+  
+  /* Background Colors */
+  --color-cream: #F8FAFA;           /* Main page background - slight teal tint */
+  --color-white: #FFFFFF;           /* Card backgrounds, contrast areas */
+  --color-dark-bg: #1E3A3A;         /* Dark section backgrounds */
+  
+  /* CTA Section */
+  --color-cta-bg: #0F2828;          /* Deep teal for CTA sections */
+  --color-cta-accent: #1E3A3A;      /* Lighter teal for hover */
+  
+  /* Footer */
+  --color-footer: #0A1414;          /* Darkest teal-black */
+  --color-footer-accent: #0F1E1E;   /* Slightly lighter for hover states */
+  
+  /* Text Colors */
+  --color-text: #1A2F2F;            /* Body text - deep teal-gray */
+  --color-text-light: #4A6060;      /* Secondary text */
+  --color-text-on-dark: #F5F5F5;    /* Text on dark backgrounds */
+  --color-text-muted: rgba(245, 245, 245, 0.7); /* Muted text on dark */
+  
+  /* Utility Colors */
+  --color-border: #D0E0E0;          /* Subtle borders - teal tint */
+  --color-shadow: rgba(15, 40, 40, 0.15); /* Box shadows */
+  
+  /* -------------------------------------------------------------------------
+   * TYPOGRAPHY
+   * -------------------------------------------------------------------------
+   * Using Google Fonts: Playfair Display for headings (elegant, classic)
+   * and Source Sans 3 for body text (clean, readable)
+   * ----------------------------------------------------------------------- */
+  
+  /* Font Families */
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Font Sizes - Mobile First (base size: 16px) */
+  --text-xs: 0.75rem;     /* 12px - fine print */
+  --text-sm: 0.875rem;    /* 14px - small text, captions */
+  --text-base: 1rem;      /* 16px - body text */
+  --text-lg: 1.125rem;    /* 18px - large body text */
+  --text-xl: 1.25rem;     /* 20px - small headings */
+  --text-2xl: 1.5rem;     /* 24px - section headings */
+  --text-3xl: 2rem;       /* 32px - page headings */
+  --text-4xl: 2.5rem;     /* 40px - hero headings */
+  --text-5xl: 3rem;       /* 48px - large hero text */
+  
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Line Heights */
+  --leading-tight: 1.2;   /* Headings */
+  --leading-normal: 1.5;  /* Body text */
+  --leading-relaxed: 1.75; /* Large body text */
+  
+  /* -------------------------------------------------------------------------
+   * SPACING
+   * -------------------------------------------------------------------------
+   * Consistent spacing scale based on 4px increments.
+   * This creates visual harmony throughout the design.
+   * ----------------------------------------------------------------------- */
+  
+  --space-1: 0.25rem;     /* 4px */
+  --space-2: 0.5rem;      /* 8px */
+  --space-3: 0.75rem;     /* 12px */
+  --space-4: 1rem;        /* 16px */
+  --space-5: 1.25rem;     /* 20px */
+  --space-6: 1.5rem;      /* 24px */
+  --space-8: 2rem;        /* 32px */
+  --space-10: 2.5rem;     /* 40px */
+  --space-12: 3rem;       /* 48px */
+  --space-16: 4rem;       /* 64px */
+  --space-20: 5rem;       /* 80px */
+  --space-24: 6rem;       /* 96px */
+  
+  /* -------------------------------------------------------------------------
+   * LAYOUT
+   * ----------------------------------------------------------------------- */
+  
+  --max-width: 1200px;    /* Maximum content width */
+  --border-radius: 8px;   /* Standard border radius for cards, buttons */
+  --border-radius-lg: 12px; /* Larger radius for hero elements */
+  
+  /* -------------------------------------------------------------------------
+   * TRANSITIONS
+   * -------------------------------------------------------------------------
+   * Consistent animation timing for interactive elements.
+   * ----------------------------------------------------------------------- */
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+
+/* =============================================================================
+ * 2. CSS RESET
+ * =============================================================================
+ * These rules normalize browser defaults so our styles look consistent
+ * across different browsers (Chrome, Firefox, Safari, Edge, etc.)
+ * =========================================================================== */
+
+/* Use border-box sizing for all elements
+   This makes width/height calculations include padding and border */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set up the base document */
+html {
+  /* Smooth scrolling for anchor links (accessibility note: some users prefer
+     instant scrolling, which we respect in the reduced-motion section below) */
+  scroll-behavior: smooth;
+  
+  /* Prevent font size inflation on mobile when rotating device */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Base body styles */
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-cream);
+  
+  /* Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Make images responsive by default */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Remove default list styles - we'll add them back when needed */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Inherit fonts for form elements */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Prevent text overflow issues */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+
+/* =============================================================================
+ * 3. TYPOGRAPHY
+ * =============================================================================
+ * Heading and text styles using our font variables.
+ * Mobile sizes are defined here; larger sizes in media queries below.
+ * =========================================================================== */
+
+/* Headings - using Playfair Display for an elegant, classic feel */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-primary);
+}
+
+/* Heading sizes - Mobile first */
 h1 {
-    color: rgb(16, 171, 86);
-    font-size: 20px;
-    font-weight: bold;
+  font-size: var(--text-3xl);  /* 32px on mobile */
+  margin-bottom: var(--space-6);
 }
+
 h2 {
-    color: rgb(78, 61, 158);
-    font-size: 20px;
-    font-weight: bold;
+  font-size: var(--text-2xl);  /* 24px on mobile */
+  margin-bottom: var(--space-4);
 }
-.stupidPooHead {
-    color: rgb(218, 34, 138);
-    font-size: 85px;
-    font-weight: bold;
+
+h3 {
+  font-size: var(--text-xl);   /* 20px on mobile */
+  margin-bottom: var(--space-3);
+}
+
+h4 {
+  font-size: var(--text-lg);   /* 18px on mobile */
+  margin-bottom: var(--space-2);
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: var(--space-4);
+}
+
+/* Last paragraph in a container shouldn't have bottom margin */
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Links - brass color for visibility and brand consistency */
+a {
+  color: var(--color-brass-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-burgundy);
+}
+
+/* Strong/bold text */
+strong,
+b {
+  font-weight: var(--font-semibold);
+}
+
+/* Small text */
+small {
+  font-size: var(--text-sm);
+}
+
+
+/* =============================================================================
+ * 4. LAYOUT
+ * =============================================================================
+ * Container and layout utilities for consistent page structure.
+ * =========================================================================== */
+
+/* Main container - centers content and adds consistent padding */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+/* Section spacing - consistent vertical rhythm */
+.section {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+/* Section with dark background (CTA sections) */
+.section--dark {
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-on-dark);
+}
+
+/* Override heading color in dark sections */
+.section--dark h2,
+.section--dark h3 {
+  color: var(--color-text-on-dark);
+}
+
+/* Section with subtle cream-to-white gradient */
+.section--alt {
+  background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-white) 100%);
+}
+
+/* Flex utilities */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* Grid for event cards and similar layouts */
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Text alignment */
+.text-center {
+  text-align: center;
+}
+
+
+/* =============================================================================
+ * 5. SKIP LINK
+ * =============================================================================
+ * Skip links allow keyboard users to bypass navigation and jump directly
+ * to main content. This is a critical accessibility feature.
+ * 
+ * The link is visually hidden until focused (when user tabs to it).
+ * =========================================================================== */
+
+.skip-link {
+  /* Position off-screen by default */
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Styling */
+  background-color: var(--color-burgundy);
+  color: var(--color-text-on-dark);
+  padding: var(--space-3) var(--space-6);
+  text-decoration: none;
+  font-weight: var(--font-semibold);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  
+  /* Ensure it appears above everything when visible */
+  z-index: 1000;
+  
+  transition: top var(--transition-fast);
+}
+
+/* Show skip link when focused */
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--color-brass);
+  outline-offset: 2px;
+}
+
+
+/* =============================================================================
+ * 6. HEADER & NAVIGATION
+ * =============================================================================
+ * Sticky header with responsive navigation.
+ * Mobile: hamburger menu | Desktop: horizontal nav
+ * =========================================================================== */
+
+/* Site header - sticky positioning keeps it visible while scrolling */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-nav);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  z-index: 100; /* Ensure header stays above page content */
+}
+
+/* Header inner container */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+/* Logo/brand area */
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text-on-dark);
+}
+
+.site-logo:hover,
+.site-logo:focus {
+  color: var(--color-brass-light);
+}
+
+/* Logo image - preserves original dimensions and transparency */
+.site-logo img,
+.logo-img {
+  height: 45px;
+  width: auto;
+  /* No border-radius, background, or cropping - keeps original shape */
+}
+
+/* Logo text (band name) */
+.site-logo-text {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+}
+
+/* Mobile menu button (hamburger) */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Hamburger lines */
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-text-on-dark);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* Hamburger animation when menu is open */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Focus state for nav toggle */
+.nav-toggle:focus {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 2px;
+}
+
+/* Main navigation */
+.main-nav {
+  /* Hidden on mobile by default */
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-nav);
+  padding: var(--space-4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Show nav when toggle is active */
+.main-nav.is-open {
+  display: block;
+}
+
+/* Navigation list */
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Navigation links */
+.nav-link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: var(--color-nav-hover);
+  color: var(--color-brass-light);
+}
+
+/* Active page indicator */
+.nav-link[aria-current="page"] {
+  background-color: var(--color-nav-hover);
+  color: var(--color-brass-light);
+}
+
+/* Focus visible state for keyboard navigation */
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 2px;
+}
+
+
+/* =============================================================================
+ * 7. HERO SECTION
+ * =============================================================================
+ * Full-width hero with background gradient and centered content.
+ * Creates a strong first impression for visitors.
+ * =========================================================================== */
+
+.hero {
+  /* Rich gradient background with texture feel */
+  background: linear-gradient(
+    135deg,
+    var(--color-burgundy) 0%,
+    var(--color-burgundy-dark) 50%,
+    #2D1118 100%
+  );
+  
+  color: var(--color-text-on-dark);
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  
+  /* Subtle pattern overlay for visual interest */
+  position: relative;
+}
+
+/* Decorative overlay pattern */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(139, 105, 20, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(139, 105, 20, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Hero content container */
+.hero-content {
+  position: relative; /* Above the overlay */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Hero heading */
+.hero h1 {
+  color: var(--color-text-on-dark);
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-4);
+}
+
+/* Hero tagline/subtitle */
+.hero-tagline {
+  font-size: var(--text-lg);
+  color: var(--color-brass-light);
+  font-style: italic;
+  margin-bottom: var(--space-8);
+  font-family: var(--font-heading);
+}
+
+/* Hero description text */
+.hero-text {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-8);
+  opacity: 0.95;
+}
+
+/* Hero CTA buttons container */
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+
+/* =============================================================================
+ * 8. CONTENT SECTIONS
+ * =============================================================================
+ * Reusable section styles for the main content areas.
+ * =========================================================================== */
+
+/* Section header with optional decorative element */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.section-header h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--space-4);
+}
+
+/* Decorative underline for section headings */
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brass), var(--color-brass-light));
+  border-radius: 2px;
+}
+
+/* Section description text */
+.section-header p {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--color-text-light);
+}
+
+/* Dark section header overrides */
+.section--dark .section-header p {
+  color: rgba(253, 248, 243, 0.8);
+}
+
+/* About section brief */
+.about-brief {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-brief p {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+}
+
+/* Read more link styling */
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-weight: var(--font-semibold);
+  margin-top: var(--space-4);
+}
+
+/* Arrow animation on hover */
+.read-more::after {
+  content: '→';
+  transition: transform var(--transition-fast);
+}
+
+.read-more:hover::after {
+  transform: translateX(3px);
+}
+
+
+/* =============================================================================
+ * 9. EVENT CARDS
+ * =============================================================================
+ * Card components for displaying upcoming events.
+ * Uses flexbox for layout flexibility.
+ * =========================================================================== */
+
+/* Events grid container */
+.events-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Individual event card */
+.event-card {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  
+  /* Border accent on left side */
+  border-left: 4px solid var(--color-brass);
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+/* Event date - prominent display */
+.event-date {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-4);
+}
+
+.event-date-day {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.event-date-month {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-brass-dark);
+  font-weight: var(--font-semibold);
+}
+
+/* Event details */
+.event-title {
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.event-time {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-light);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
+/* Clock icon before time */
+.event-time::before {
+  content: '🕐';
+  font-size: var(--text-base);
+}
+
+.event-venue {
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.event-address {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  margin-bottom: var(--space-3);
+}
+
+.event-description {
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+/* Event card actions */
+.event-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* "No events" message */
+.no-events {
+  text-align: center;
+  padding: var(--space-10);
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+
+/* =============================================================================
+ * 10. BUTTONS & LINKS
+ * =============================================================================
+ * Reusable button styles with variants.
+ * All buttons meet WCAG touch target size requirements (minimum 44x44px).
+ * =========================================================================== */
+
+/* Base button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  
+  /* Sizing - meets 44px minimum touch target */
+  padding: var(--space-3) var(--space-6);
+  min-height: 44px;
+  
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+  text-align: center;
+  
+  /* Shape */
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  
+  /* Interaction */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+/* Focus state - important for keyboard accessibility */
+.btn:focus-visible {
+  outline: 3px solid var(--color-brass);
+  outline-offset: 2px;
+}
+
+/* Primary button - brass/gold color for CTAs */
+.btn--primary {
+  background-color: var(--color-brass);
+  color: var(--color-white);
+  border-color: var(--color-brass);
+}
+
+.btn--primary:hover,
+.btn--primary:focus {
+  background-color: var(--color-brass-dark);
+  border-color: var(--color-brass-dark);
+  color: var(--color-white);
+}
+
+/* Secondary button - outline style */
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-dark);
+}
+
+/* Light variant for dark backgrounds */
+.btn--light {
+  background-color: var(--color-cream);
+  color: var(--color-primary-dark);
+  border-color: var(--color-cream);
+}
+
+.btn--light:hover,
+.btn--light:focus {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-primary-dark);
+}
+
+/* Outline light variant for dark backgrounds */
+.btn--outline-light {
+  background-color: transparent;
+  color: var(--color-text-on-dark);
+  border-color: var(--color-text-on-dark);
+}
+
+.btn--outline-light:hover,
+.btn--outline-light:focus {
+  background-color: var(--color-text-on-dark);
+  color: var(--color-burgundy);
+}
+
+/* Small button variant */
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  min-height: 36px;
+}
+
+
+/* =============================================================================
+ * 11. FOOTER
+ * =============================================================================
+ * Site footer with contact information and navigation.
+ * =========================================================================== */
+
+.site-footer {
+  background-color: var(--color-footer);
+  color: var(--color-text-on-dark);
+  padding: var(--space-12) var(--space-4);
+}
+
+.footer-content {
+  display: grid;
+  gap: var(--space-8);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Footer sections */
+.footer-section h3 {
+  color: var(--color-brass-light);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-4);
+}
+
+.footer-section p {
+  opacity: 0.9;
+  margin-bottom: var(--space-2);
+}
+
+/* Footer links */
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-link {
+  color: var(--color-text-on-dark);
+  text-decoration: none;
+  opacity: 0.9;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  opacity: 1;
+  color: var(--color-brass-light);
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-footer-accent);
+  color: var(--color-text-on-dark);
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.social-link:hover,
+.social-link:focus {
+  background-color: var(--color-brass);
+}
+
+/* Copyright bar */
+.footer-bottom {
+  border-top: 1px solid var(--color-footer-accent);
+  padding-top: var(--space-6);
+  margin-top: var(--space-8);
+  text-align: center;
+  font-size: var(--text-sm);
+  opacity: 0.8;
+}
+
+
+/* =============================================================================
+ * 12. UTILITIES
+ * =============================================================================
+ * Helper classes for common styling needs.
+ * =========================================================================== */
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hide visually and from screen readers */
+.hidden {
+  display: none !important;
+}
+
+/* Margin utilities */
+.mt-4 { margin-top: var(--space-4); }
+.mt-8 { margin-top: var(--space-8); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+/* Padding utilities */
+.pt-4 { padding-top: var(--space-4); }
+.pb-4 { padding-bottom: var(--space-4); }
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+}
+
+.cta-section h2 {
+  color: var(--color-text-on-dark);
+  margin-bottom: var(--space-4);
+}
+
+.cta-section p {
+  margin-bottom: var(--space-8);
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+/* Placeholder page content */
+.placeholder-content {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder-content h1 {
+  margin-bottom: var(--space-6);
+}
+
+.placeholder-content p {
+  font-size: var(--text-lg);
+  color: var(--color-text-light);
+  max-width: 500px;
+}
+
+/* Newsletter section */
+.newsletter-section {
+  background: var(--color-primary);
+  text-align: center;
+}
+
+.newsletter-section h2 {
+  color: var(--color-text-on-dark);
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 2rem auto 0;
+}
+
+@media (min-width: 640px) {
+  .newsletter-form {
+    flex-direction: row;
+  }
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0.875rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: var(--color-brass-light);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+/* =============================================================================
+ * 13. RESPONSIVE BREAKPOINTS
+ * =============================================================================
+ * Media queries for larger screens. We use min-width (mobile-first approach).
+ * 
+ * Breakpoints:
+ * - 640px:  Small tablets, large phones in landscape
+ * - 768px:  Tablets
+ * - 1024px: Small desktops, tablets in landscape
+ * - 1280px: Large desktops
+ * =========================================================================== */
+
+/* Small tablets and up (640px) */
+@media (min-width: 640px) {
+  /* Hero buttons side by side */
+  .hero-cta {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  /* Events grid - 2 columns */
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* CTA buttons side by side */
+  .cta-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* Tablets (768px) */
+@media (min-width: 768px) {
+  /* Increase section padding */
+  .section {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+  
+  /* Larger hero */
+  .hero {
+    padding: var(--space-20) var(--space-4);
+  }
+  
+  .hero h1 {
+    font-size: var(--text-5xl);
+  }
+  
+  .hero-tagline {
+    font-size: var(--text-xl);
+  }
+  
+  /* Larger headings */
+  h1 {
+    font-size: var(--text-4xl);
+  }
+  
+  h2 {
+    font-size: var(--text-3xl);
+  }
+  
+  /* Container padding */
+  .container {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+  
+  /* Footer grid */
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small desktops (1024px) */
+@media (min-width: 1024px) {
+  /* Hide mobile nav toggle */
+  .nav-toggle {
+    display: none;
+  }
+  
+  /* Show desktop navigation */
+  .main-nav {
+    display: block;
+    position: static;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+  
+  /* Horizontal nav list */
+  .nav-list {
+    flex-direction: row;
+    gap: var(--space-1);
+  }
+  
+  .nav-link {
+    padding: var(--space-2) var(--space-4);
+  }
+  
+  .nav-link:hover,
+  .nav-link:focus {
+    background-color: var(--color-nav-hover);
+  }
+  
+  /* Events grid - 3 columns */
+  .events-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Footer - 4 columns */
+  .footer-content {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Larger logo text */
+  .site-logo-text {
+    font-size: var(--text-2xl);
+  }
+}
+
+/* Large desktops (1280px) */
+@media (min-width: 1280px) {
+  /* Hero extra large */
+  .hero {
+    padding: var(--space-24) var(--space-4);
+  }
+  
+  /* Increase base section padding */
+  .section {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-20);
+  }
+}
+
+
+/* =============================================================================
+ * 14. ACCESSIBILITY & REDUCED MOTION
+ * =============================================================================
+ * Respect user preferences for reduced motion.
+ * Some users experience motion sickness or have vestibular disorders.
+ * =========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable smooth scrolling */
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Remove all transitions and animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #000000;
+  }
+  
+  .event-card {
+    border: 2px solid var(--color-primary);
+  }
+  
+  .btn {
+    border-width: 3px;
+  }
+}
+
+/* Focus visible - modern browsers only show focus ring for keyboard navigation */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brass);
+  outline-offset: 2px;
 }

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- =============================================================================
+  RIVER CITY BIG BAND - EVENTS PAGE (PLACEHOLDER)
+  =========================================================================== -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Events | River City Big Band</title>
+  <meta name="description" content="View all upcoming River City Big Band performances. Find dates, venues, and ticket information for our live big band jazz concerts.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="site-logo" aria-label="River City Big Band - Home">
+        <span class="site-logo-text">RCBB</span>
+      </a>
+      
+      <button class="nav-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about/" class="nav-link">About</a></li>
+          <li><a href="/media/" class="nav-link">Media</a></li>
+          <li><a href="/musicians/" class="nav-link">Musicians</a></li>
+          <li><a href="/events/" class="nav-link" aria-current="page">Events</a></li>
+          <li><a href="/contact/" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="placeholder-content">
+      <h1>Upcoming Events</h1>
+      <p>
+        We're building a complete events calendar. In the meantime, check out our 
+        featured upcoming performances on the home page, or contact us directly 
+        for our full schedule.
+      </p>
+      <div class="mt-8">
+        <a href="/#upcoming-events" class="btn btn--primary">See Featured Events</a>
+        <a href="/contact/" class="btn btn--secondary" style="margin-left: 1rem;">Contact for Schedule</a>
+      </div>
+    </section>
+    <!-- NEWSLETTER SECTION -->
+    <section class="section newsletter-section section--dark" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <h2 id="newsletter-heading">Stay in the Loop</h2>
+        <p>Subscribe to our mailing list and never miss an update on upcoming shows.</p>
+        
+        <form class="newsletter-form" action="#" method="POST">
+          <input 
+            type="email" 
+            name="email" 
+            class="newsletter-input" 
+            placeholder="Enter your email address" 
+            aria-label="Email address"
+            required
+          >
+          <button type="submit" class="btn btn--light">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>River City Big Band</h3>
+          <p>Bringing the timeless sound of classic big band jazz to audiences throughout the region.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="/" class="footer-link">Home</a>
+            <a href="/about/" class="footer-link">About</a>
+            <a href="/media/" class="footer-link">Media</a>
+            <a href="/musicians/" class="footer-link">Musicians</a>
+            <a href="/events/" class="footer-link">Events</a>
+            <a href="/contact/" class="footer-link">Contact</a>
+          </nav>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>For booking inquiries:</p>
+          <p><a href="/contact/" class="footer-link">Contact Us →</a></p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">f</span>
+            </a>
+            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">X</span>
+            </a>
+            <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">▶</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2025</span> River City Big Band. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    navToggle.addEventListener('click', function() {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isOpen);
+      mainNav.classList.toggle('is-open');
+    });
+    
+    document.addEventListener('click', function(event) {
+      if (!mainNav.contains(event.target) && !navToggle.contains(event.target)) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('is-open');
+      }
+    });
+    
+    const yearSpan = document.getElementById('current-year');
+    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

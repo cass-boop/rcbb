@@ -1,22 +1,619 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- =============================================================================
+  RIVER CITY BIG BAND - HOME PAGE
+  =============================================================================
+  
+  Main landing page for River City Big Band - Edmonton, Alberta's premier
+  big band jazz organization.
+  
+  SOCIAL MEDIA LINKS:
+  - Facebook: https://www.facebook.com/pages/River-City-Big-Band/140394659353441
+  - Twitter/X: https://twitter.com/RCBB_edmonton
+  - YouTube: https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g
+  - SoundCloud: https://soundcloud.com/therivercitybigband
+  
+  =========================================================================== -->
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  
+  <title>River City Big Band | Edmonton's Premier Big Band Jazz</title>
+  
+  <meta name="description" content="River City Big Band is one of the premier jazz organizations in Edmonton, Alberta. Experience classic big band jazz from the swing era to modern repertoire.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="River City Big Band | Edmonton's Premier Big Band Jazz">
+  <meta property="og:description" content="Experience classic big band jazz from the swing era to modern repertoire. View upcoming performances in Edmonton, Alberta.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/hero-band.jpg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
     <link rel="stylesheet" href="style.css">
+  
+  <!-- Page-specific styles -->
+  <style>
+    /* Hero as full header - full bleed background image with overlay */
+    .hero-header {
+      position: relative;
+      min-height: 100vh;
+      background: url('images/hero-band.jpg');
+      background-size: cover;
+      background-position: center;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    
+    /* Full-screen semi-transparent overlay */
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 30, 30, 0.65);
+      z-index: 1;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-header {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    /* Navigation bar - sticky on scroll */
+    .hero-header .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 30, 30, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+    
+    /* Left side - Logo */
+    .hero-visual-side {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      padding: 6rem 2rem 2rem;
+      z-index: 2;
+      order: 1;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-visual-side {
+        min-height: auto;
+        padding: 2rem;
+        order: 0;
+      }
+    }
+    
+    /* Logo in hero */
+    .hero-logo {
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 8px 40px rgba(0, 0, 0, 0.5));
+      position: relative;
+      z-index: 1;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-logo {
+        width: 280px;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-logo {
+        width: 340px;
+      }
+    }
+    
+    /* Right side - Content */
+    .hero-content-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 2rem 4rem;
+      position: relative;
+      z-index: 2;
+      order: 2;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-content-side {
+        padding: 4rem 3rem 4rem 2rem;
+        order: 0;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-content-side {
+        padding: 4rem 5rem 4rem 2rem;
+      }
+    }
+    
+    /* Hero content styling */
+    .hero-content {
+      max-width: 520px;
+    }
+    
+    .hero-tagline {
+      color: var(--color-brass-light);
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-tagline {
+        font-size: 1.75rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-tagline {
+        font-size: 2rem;
+      }
+    }
+    
+    .hero-text {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.125rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    
+    /* Hero CTA - buttons span equal width */
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+    }
+    
+    .hero-cta .btn {
+      flex: 1;
+      text-align: center;
+    }
+    
+    /* Gallery preview */
+    .gallery-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .gallery-preview img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .gallery-preview img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    
+    @media (max-width: 640px) {
+      .gallery-preview {
+        grid-template-columns: 1fr;
+      }
+      
+      .gallery-preview img {
+        height: 180px;
+      }
+      
+      .hero-logo {
+        width: 100px;
+      }
+    }
+    
+    /* Listen section styling */
+    .listen-section {
+      background: linear-gradient(135deg, #0F2828 0%, #0A1414 100%);
+    }
+    
+    .soundcloud-embed {
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Social proof badges */
+    .social-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .proof-item {
+      text-align: center;
+    }
+    
+    .proof-number {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--color-brass-light);
+      font-weight: bold;
+    }
+    
+    .proof-label {
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+    
+  </style>
 </head>
+
 <body>
-    <h1 style="color: purple;">Hello World</h1>
-    <h1 class="stupidPooHead">Hello World</h1>
-    <h3>Hello World</h3>
-    <h4>Hello World</h4>
-    <h5>Hello World</h5>
-    <h6>Hello World</h6>
-    <p>Hello World</p>
-    <a href="https://www.google.com">Google</a>
-    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo">
-    <button>Click me</button>  
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ===========================================================================
+    MAIN CONTENT
+    =========================================================================== -->
+  <main id="main-content">
+    
+    <!-- HERO HEADER - Full bleed with integrated navigation -->
+    <section class="hero-header" aria-labelledby="hero-heading">
+      
+      <!-- Navigation integrated into hero -->
+      <header class="site-header">
+        <div class="container header-inner">
+          <a href="/" class="site-logo" aria-label="River City Big Band - Home">
+            <span class="site-logo-text">RCBB</span>
+          </a>
+          
+          <button 
+            class="nav-toggle" 
+            aria-expanded="false" 
+            aria-controls="main-navigation"
+            aria-label="Toggle navigation menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
+          <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
+            <ul class="nav-list">
+              <li><a href="/" class="nav-link" aria-current="page">Home</a></li>
+              <li><a href="/about/" class="nav-link">About</a></li>
+              <li><a href="/media/" class="nav-link">Media</a></li>
+              <li><a href="/musicians/" class="nav-link">Musicians</a></li>
+              <li><a href="/events/" class="nav-link">Events</a></li>
+              <li><a href="/contact/" class="nav-link">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      
+      <!-- Left side: Logo -->
+      <div class="hero-visual-side">
+        <img src="RCBBlogo.avif" alt="River City Big Band Logo" class="hero-logo">
+      </div>
+      
+      <!-- Right side: Content -->
+      <div class="hero-content-side">
+        <div class="hero-content">
+          <h1 id="hero-heading" class="sr-only">River City Big Band</h1>
+          
+          <p class="hero-tagline">Edmonton's Premier Big Band Jazz</p>
+          
+          <p class="hero-text">
+            From the classics of the swing era to the modern repertoire of today — 
+            experience the sheer exhilaration of live big band music.
+          </p>
+          
+          <div class="hero-cta">
+            <a href="#upcoming-events" class="btn btn--primary">Upcoming Shows</a>
+            <a href="/media/" class="btn btn--outline-light">Listen Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WELCOME / ABOUT SECTION -->
+    <section class="section section--alt" aria-labelledby="welcome-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="welcome-heading">Welcome!</h2>
+        </div>
+        
+        <div class="about-brief">
+          <p>
+            The River City Big Band is one of the premier jazz organizations in Edmonton, Alberta. 
+            Our members all share a common enthusiasm for big band jazz. The music we perform spans 
+            from the classics of the big band era through to the modern repertoire of today.
+          </p>
+          <p>
+            In addition to getting together to play for the sheer exhilaration of making music, 
+            we perform in a variety of settings throughout the community including jazz festivals, 
+            featured concerts with guest artists, private functions, and school events.
+          </p>
+          <a href="/about/" class="read-more">Learn more about us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED EVENTS SECTION -->
+    <section id="upcoming-events" class="section" aria-labelledby="events-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="events-heading">Upcoming Performances</h2>
+          <p>Join us for an evening of unforgettable music!</p>
+        </div>
+        
+        <div id="events-container" class="events-grid" role="list" aria-label="Upcoming events">
+          <noscript>
+            <p class="no-events">
+              Please enable JavaScript to see our upcoming events, or 
+              <a href="/contact/">contact us</a> for performance information.
+            </p>
+          </noscript>
+        </div>
+        
+        <div class="text-center mt-8">
+          <a href="/events/" class="btn btn--secondary">View All Events</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY PREVIEW SECTION -->
+    <section class="section section--dark" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="gallery-heading">The Band in Action</h2>
+          <p>Snapshots from our performances across Edmonton and beyond.</p>
+        </div>
+        
+        <div class="gallery-preview">
+          <img src="images/gallery-1.jpg" alt="River City Big Band performing at a concert venue" loading="lazy">
+          <img src="images/gallery-2.jpg" alt="Big band musicians playing brass instruments on stage" loading="lazy">
+          <img src="images/gallery-3.jpg" alt="The full ensemble during a live performance" loading="lazy">
+        </div>
+        
+        <div class="text-center mt-8">
+          <a href="/gallery/" class="btn btn--light">View Full Gallery</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTEN SECTION -->
+    <section class="section listen-section section--dark" aria-labelledby="listen-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="listen-heading">Hear the Sound</h2>
+          <p>Get a taste of the River City Big Band experience.</p>
+        </div>
+        
+        <div class="soundcloud-embed">
+          <!-- SoundCloud Embed -->
+          <iframe 
+            width="100%" 
+            height="166" 
+            scrolling="no" 
+            frameborder="no" 
+            allow="autoplay" 
+            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/therivercitybigband&color=%23c9a227&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
+            title="River City Big Band on SoundCloud"
+          ></iframe>
+        </div>
+        
+        <div class="text-center mt-8">
+          <a href="/discography/" class="btn btn--light">Explore Our Music</a>
+        </div>
+        
+        <!-- Social Proof -->
+        <div class="social-proof">
+          <div class="proof-item">
+            <div class="proof-number">17+</div>
+            <div class="proof-label">Musicians</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-number">15+</div>
+            <div class="proof-label">Years Performing</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-number">869</div>
+            <div class="proof-label">Facebook Followers</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="section newsletter-section section--dark" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <h2 id="newsletter-heading">Stay in the Loop</h2>
+        <p>Subscribe to our mailing list and never miss an update on upcoming shows.</p>
+        
+        <form class="newsletter-form" action="#" method="POST">
+          <input 
+            type="email" 
+            name="email" 
+            class="newsletter-input" 
+            placeholder="Enter your email address" 
+            aria-label="Email address"
+            required
+          >
+          <button type="submit" class="btn btn--light">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===========================================================================
+    FOOTER
+    =========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        
+        <!-- Brand Column -->
+        <div class="footer-section">
+          <h3>River City Big Band</h3>
+          <p>Edmonton's premier big band jazz organization, keeping the swing era alive since 2008.</p>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="/" class="footer-link">Home</a>
+            <a href="/about/" class="footer-link">About</a>
+            <a href="/media/" class="footer-link">Media</a>
+            <a href="/musicians/" class="footer-link">Musicians</a>
+            <a href="/events/" class="footer-link">Events</a>
+            <a href="/contact/" class="footer-link">Contact</a>
+          </nav>
+        </div>
+        
+        <!-- Contact -->
+        <div class="footer-section">
+          <h3>Get in Touch</h3>
+          <p>For booking inquiries and questions:</p>
+          <p><a href="/contact/" class="footer-link">Contact Us →</a></p>
+        </div>
+        
+        <!-- Social Media - REAL LINKS -->
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            <a href="https://soundcloud.com/therivercitybigband" class="social-link" aria-label="SoundCloud" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.084-.1zm-.899 1.463c-.06 0-.091.037-.104.094L0 14.479l.165.71c.013.057.045.094.09.094s.089-.037.099-.094l.225-.71-.225-.699c-.013-.057-.052-.091-.078-.091zm1.83-1.259c-.061 0-.12.045-.12.104l-.21 2.563.225 2.458c0 .06.045.104.106.104.061 0 .12-.044.12-.104l.24-2.458-.24-2.563c0-.06-.059-.104-.121-.104zm.945-.089c-.075 0-.135.06-.15.135l-.193 2.64.21 2.544c.016.077.075.138.149.138.075 0 .135-.061.15-.138l.24-2.544-.24-2.64c-.015-.075-.06-.135-.166-.135zm.96-.105c-.09 0-.165.075-.18.165l-.165 2.745.18 2.535c.015.09.075.149.165.149s.165-.06.18-.149l.195-2.535-.195-2.745c-.015-.09-.075-.165-.18-.165zm.975-.015c-.105 0-.18.075-.195.18l-.15 2.775.165 2.52c.015.105.09.18.18.18.105 0 .18-.075.195-.18l.18-2.52-.18-2.775c-.015-.105-.09-.18-.195-.18zm1.02-.015c-.12 0-.21.09-.225.21l-.135 2.79.15 2.505c.015.12.105.21.21.21.12 0 .21-.09.225-.21l.165-2.505-.165-2.79c-.015-.12-.105-.21-.225-.21zm1.035.18c-.135 0-.24.105-.24.24l-.12 2.61.135 2.49c0 .135.105.24.225.24.135 0 .24-.105.24-.24l.15-2.49-.15-2.61c0-.135-.105-.24-.24-.24zm1.05-.72c-.15 0-.27.12-.27.27l-.12 3.33.135 2.475c0 .15.12.27.255.27.15 0 .27-.12.27-.27l.135-2.475-.135-3.33c0-.15-.12-.27-.27-.27zm1.065.165c-.165 0-.285.12-.285.285l-.105 3.165.12 2.46c0 .165.12.285.27.285.165 0 .285-.12.3-.285l.12-2.46-.12-3.165c-.015-.165-.135-.285-.3-.285zm1.065-.165c-.18 0-.315.135-.315.315l-.09 3.33.105 2.445c0 .18.135.315.3.315.18 0 .315-.135.315-.315l.12-2.445-.12-3.33c0-.18-.135-.315-.315-.315zm1.095-.015c-.195 0-.345.15-.345.345l-.075 3.345.09 2.43c0 .195.15.345.33.345.195 0 .345-.15.345-.345l.105-2.43-.105-3.345c0-.195-.15-.345-.345-.345zm1.11.03c-.21 0-.36.15-.375.36l-.06 3.315.075 2.415c.015.21.165.36.36.36.21 0 .375-.15.375-.36l.09-2.415-.09-3.315c0-.21-.165-.36-.375-.36zm1.095-.09c-.225 0-.39.165-.39.39l-.06 3.405.075 2.4c0 .225.165.39.375.39.225 0 .39-.165.405-.39l.075-2.4-.075-3.405c-.015-.225-.18-.39-.405-.39zm1.14.045c-.24 0-.42.18-.42.42l-.045 3.36.06 2.385c0 .24.18.42.405.42.24 0 .42-.18.435-.42l.06-2.385-.06-3.36c-.015-.24-.195-.42-.435-.42zm1.11-.09c-.255 0-.45.195-.45.45l-.03 3.45.045 2.37c0 .255.195.45.435.45.255 0 .45-.195.465-.45l.045-2.37-.045-3.45c-.015-.255-.21-.45-.465-.45zm1.17.135c-.27 0-.48.21-.48.48l-.03 3.315.045 2.355c0 .27.21.48.465.48.27 0 .48-.21.48-.48l.045-2.355-.045-3.315c0-.27-.21-.48-.48-.48zm1.14-.12c-.285 0-.51.225-.51.51l-.015 3.435.03 2.34c0 .285.225.51.495.51.285 0 .51-.225.525-.51l.03-2.34-.03-3.435c-.015-.285-.24-.51-.525-.51zm1.185.165c-.3 0-.525.225-.54.525l-.015 3.27.03 2.325c.015.3.24.525.525.525.3 0 .54-.225.54-.525l.03-2.325-.03-3.27c0-.3-.24-.525-.54-.525zm4.11 1.605c-.555 0-1.08.12-1.56.33-.3-3.42-3.135-6.105-6.63-6.105-.9 0-1.755.18-2.535.51-.3.12-.375.24-.39.48v12.045c.015.255.195.465.45.495h10.665c1.92 0 3.48-1.56 3.48-3.48 0-1.92-1.56-3.48-3.48-3.48v-.795z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2025</span> River City Big Band. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===========================================================================
+    JAVASCRIPT
+    =========================================================================== -->
+  <script src="events.js"></script>
+  
+  <script>
+    /* Navigation Toggle */
+    const navToggle = document.querySelector('.nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    navToggle.addEventListener('click', function() {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isOpen);
+      mainNav.classList.toggle('is-open');
+    });
+    
+    document.addEventListener('click', function(event) {
+      if (!mainNav.contains(event.target) && !navToggle.contains(event.target)) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('is-open');
+      }
+    });
+    
+    /* Events Display */
+    const eventsContainer = document.getElementById('events-container');
+    
+    if (typeof upcomingEvents !== 'undefined' && eventsContainer) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const futureEvents = upcomingEvents
+        .filter(event => new Date(event.date) >= today)
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .slice(0, 3);
+      
+      if (futureEvents.length === 0) {
+        eventsContainer.innerHTML = `
+          <div class="no-events" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+            <p style="font-size: 1.125rem; margin-bottom: 1rem;">
+              ✨ Stay tuned! New shows coming soon.
+            </p>
+            <p style="color: var(--color-text-light);">
+              Follow us on <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" target="_blank" rel="noopener">Facebook</a> 
+              to be the first to know about upcoming performances.
+            </p>
+          </div>
+        `;
+      } else {
+        const eventsHTML = futureEvents.map(event => {
+          const eventDate = new Date(event.date);
+          const day = eventDate.getDate();
+          const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
+          
+          const ticketButton = event.ticketLink 
+            ? `<a href="${event.ticketLink}" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer">Get Tickets</a>`
+            : '';
+          
+          return `
+            <article class="event-card" role="listitem">
+              <div class="event-date">
+                <span class="event-date-day">${day}</span>
+                <span class="event-date-month">${month}</span>
+              </div>
+              <h3 class="event-title">${event.venue}</h3>
+              <p class="event-time">${event.time}</p>
+              <p class="event-venue">${event.displayDate}</p>
+              ${event.address ? `<p class="event-address">${event.address}</p>` : ''}
+              <p class="event-description">${event.description}</p>
+              <div class="event-actions">
+                ${ticketButton}
+              </div>
+            </article>
+          `;
+        }).join('');
+        
+        eventsContainer.innerHTML = eventsHTML;
+      }
+    }
+    
+    /* Dynamic Year */
+    const yearSpan = document.getElementById('current-year');
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  </script>
 </body>
 </html>

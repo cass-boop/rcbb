@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- =============================================================================
+  RIVER CITY BIG BAND - MEDIA PAGE
+  =========================================================================== -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media | River City Big Band</title>
+  <meta name="description" content="Explore River City Big Band's discography and photo galleries. Listen to our recordings and see photos from performances.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  
+  <style>
+    .media-grid {
+      display: grid;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    @media (min-width: 640px) {
+      .media-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .media-card {
+      background: linear-gradient(135deg, #1E3A3A 0%, #0F2828 100%);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      text-decoration: none;
+      color: #F5F5F5;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 280px;
+    }
+    
+    .media-card:hover,
+    .media-card:focus {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      color: #F5F5F5;
+    }
+    
+    .media-card:focus {
+      outline: 3px solid #C9A227;
+      outline-offset: 4px;
+    }
+    
+    .media-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    
+    .media-card h2 {
+      color: #C9A227;
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .media-card p {
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    .media-card .arrow {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      font-size: 1.5rem;
+      opacity: 0.6;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    
+    .media-card:hover .arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="site-logo" aria-label="River City Big Band - Home">
+        <span class="site-logo-text">RCBB</span>
+      </a>
+      
+      <button class="nav-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about/" class="nav-link">About</a></li>
+          <li><a href="/media/" class="nav-link" aria-current="page">Media</a></li>
+          <li><a href="/musicians/" class="nav-link">Musicians</a></li>
+          <li><a href="/events/" class="nav-link">Events</a></li>
+          <li><a href="/contact/" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h1>Media</h1>
+          <p>Explore our recordings and relive the moments from our performances.</p>
+        </div>
+        
+        <div class="media-grid">
+          <a href="/discography/" class="media-card">
+            <span class="media-icon" aria-hidden="true">🎵</span>
+            <h2>Discography</h2>
+            <p>Listen to our recordings and albums. From studio sessions to live captures, hear the River City Big Band sound.</p>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          
+          <a href="/gallery/" class="media-card">
+            <span class="media-icon" aria-hidden="true">📷</span>
+            <h2>Photo Gallery</h2>
+            <p>Browse photos from our performances, rehearsals, and community events. See the band in action!</p>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- NEWSLETTER SECTION -->
+    <section class="section newsletter-section section--dark" aria-labelledby="newsletter-heading">
+      <div class="container">
+        <h2 id="newsletter-heading">Stay in the Loop</h2>
+        <p>Subscribe to our mailing list and never miss an update on upcoming shows.</p>
+        
+        <form class="newsletter-form" action="#" method="POST">
+          <input 
+            type="email" 
+            name="email" 
+            class="newsletter-input" 
+            placeholder="Enter your email address" 
+            aria-label="Email address"
+            required
+          >
+          <button type="submit" class="btn btn--light">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>River City Big Band</h3>
+          <p>Bringing the timeless sound of classic big band jazz to audiences throughout the region.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="/" class="footer-link">Home</a>
+            <a href="/about/" class="footer-link">About</a>
+            <a href="/media/" class="footer-link">Media</a>
+            <a href="/musicians/" class="footer-link">Musicians</a>
+            <a href="/events/" class="footer-link">Events</a>
+            <a href="/contact/" class="footer-link">Contact</a>
+          </nav>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>For booking inquiries:</p>
+          <p><a href="/contact/" class="footer-link">Contact Us →</a></p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">f</span>
+            </a>
+            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">X</span>
+            </a>
+            <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">▶</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2025</span> River City Big Band. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    navToggle.addEventListener('click', function() {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isOpen);
+      mainNav.classList.toggle('is-open');
+    });
+    
+    document.addEventListener('click', function(event) {
+      if (!mainNav.contains(event.target) && !navToggle.contains(event.target)) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('is-open');
+      }
+    });
+    
+    const yearSpan = document.getElementById('current-year');
+    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
