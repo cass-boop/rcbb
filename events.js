@@ -126,7 +126,7 @@ const upcomingEvents = [
     address: "Downtown Edmonton",
     description: "Outdoor summer concert as part of the TD Edmonton International Jazz Festival. Free admission!",
     ticketLink: ""
-  }
+  },
 
   // -------------------------------------------------------------------------
   // ADD YOUR NEW EVENTS ABOVE THIS LINE
