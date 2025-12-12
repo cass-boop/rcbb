@@ -95,22 +95,15 @@
       }
     }
     
-    /* Album artwork placeholder */
+    /* Album artwork */
     .album-artwork {
       width: 100%;
       max-width: 200px;
       aspect-ratio: 1;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      object-fit: cover;
       border-radius: var(--border-radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-brass-light);
-      font-family: var(--font-heading);
-      font-size: var(--text-xl);
-      text-align: center;
-      padding: var(--space-4);
       margin: 0 auto;
+      box-shadow: 0 4px 12px var(--color-shadow);
     }
     
     @media (min-width: 640px) {
@@ -304,14 +297,11 @@
           <!-- ALBUM: RIVER (2012) -->
           <article class="album-card">
             <div class="album-header">
-              <!-- 
-                IMAGE PLACEHOLDER: Album artwork for "River"
-                Recommended size: 400x400px
-                File needed: images/album-river.jpg
-              -->
-              <div class="album-artwork" aria-label="River album artwork">
-                River<br>(2012)
-              </div>
+              <img 
+                src="../images/rcbbRiverAlbumArt.avif" 
+                alt="River album artwork" 
+                class="album-artwork"
+              >
               
               <div class="album-info">
                 <h2>River</h2>
@@ -405,14 +395,11 @@
           <!-- ALBUM: JUST FRIENDS (2010) -->
           <article class="album-card">
             <div class="album-header">
-              <!-- 
-                IMAGE PLACEHOLDER: Album artwork for "Just Friends"
-                Recommended size: 400x400px
-                File needed: images/album-just-friends.jpg or .gif
-              -->
-              <div class="album-artwork" aria-label="Just Friends album artwork">
-                Just Friends<br>(2010)
-              </div>
+              <img 
+                src="../images/rbccJustFriendsAlbumArt.gif" 
+                alt="Just Friends album artwork" 
+                class="album-artwork"
+              >
               
               <div class="album-info">
                 <h2>Just Friends</h2>
