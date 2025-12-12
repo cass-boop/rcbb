@@ -1,23 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- =============================================================================
-  RIVER CITY BIG BAND - EVENTS PAGE (PLACEHOLDER)
+  RIVER CITY BIG BAND - EVENTS PAGE
+  =============================================================================
+  
+  This page displays upcoming events (from events.js) and a comprehensive
+  archive of past events from 2008-2025.
+  
+  UPCOMING EVENTS: Pulled dynamically from events.js
+  PAST EVENTS: Manually curated from past-events.md
+  
   =========================================================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upcoming Events | River City Big Band</title>
-  <meta name="description" content="View all upcoming River City Big Band performances. Find dates, venues, and ticket information for our live big band jazz concerts.">
+  <title>Events | River City Big Band</title>
+  <meta name="description" content="View upcoming River City Big Band performances and explore our extensive archive of past events dating back to 2008.">
   
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
+  
+  <!-- Page-specific styles -->
+  <style>
+    /* -------------------------------------------------------------------------
+     * PAGE HEADER
+     * ----------------------------------------------------------------------- */
+    .page-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: var(--color-text-on-dark);
+      padding: var(--space-16) var(--space-4) var(--space-12);
+      text-align: center;
+    }
+    
+    .page-header h1 {
+      color: var(--color-text-on-dark);
+      margin-bottom: var(--space-4);
+    }
+    
+    .page-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: var(--text-lg);
+      opacity: 0.9;
+    }
+    
+    /* -------------------------------------------------------------------------
+     * SECTION STYLING
+     * ----------------------------------------------------------------------- */
+    .events-section {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: var(--text-2xl);
+      color: var(--color-primary);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 2px solid var(--color-brass);
+    }
+    
+    /* -------------------------------------------------------------------------
+     * UPCOMING EVENTS GRID
+     * ----------------------------------------------------------------------- */
+    .upcoming-events-grid {
+      display: grid;
+      gap: var(--space-6);
+    }
+    
+    @media (min-width: 640px) {
+      .upcoming-events-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .upcoming-events-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    /* -------------------------------------------------------------------------
+     * PAST EVENTS - COLLAPSIBLE YEARS
+     * ----------------------------------------------------------------------- */
+    .past-events-section {
+      background: var(--color-cream);
+    }
+    
+    .year-group {
+      margin-bottom: var(--space-4);
+      background: var(--color-white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 2px 8px var(--color-shadow);
+    }
+    
+    .year-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-white);
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: var(--font-bold);
+      color: var(--color-primary);
+      transition: background-color var(--transition-fast);
+    }
+    
+    .year-header:hover {
+      background: var(--color-cream);
+    }
+    
+    .year-header:focus {
+      outline: 2px solid var(--color-brass);
+      outline-offset: -2px;
+    }
+    
+    .year-toggle {
+      font-size: var(--text-lg);
+      transition: transform var(--transition-fast);
+      color: var(--color-brass);
+    }
+    
+    .year-header[aria-expanded="true"] .year-toggle {
+      transform: rotate(180deg);
+    }
+    
+    .year-events {
+      display: none;
+      padding: 0 var(--space-6) var(--space-6);
+    }
+    
+    .year-events.is-open {
+      display: block;
+    }
+    
+    /* Individual past event */
+    .past-event {
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .past-event:last-child {
+      border-bottom: none;
+    }
+    
+    .past-event-date {
+      font-weight: var(--font-semibold);
+      color: var(--color-brass-dark);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-1);
+    }
+    
+    .past-event-title {
+      font-weight: var(--font-semibold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-1);
+    }
+    
+    .past-event-description {
+      font-size: var(--text-sm);
+      color: var(--color-text-light);
+      line-height: var(--leading-relaxed);
+    }
+    
+    /* Event count badge */
+    .event-count {
+      font-size: var(--text-sm);
+      font-weight: var(--font-normal);
+      color: var(--color-text-light);
+      margin-left: var(--space-2);
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Skip Link for Accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- ===========================================================================
+    HEADER & NAVIGATION
+    =========================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="site-logo" aria-label="River City Big Band - Home">
@@ -34,8 +204,9 @@
         <ul class="nav-list">
           <li><a href="/" class="nav-link">Home</a></li>
           <li><a href="/about/" class="nav-link">About</a></li>
-          <li><a href="/media/" class="nav-link">Media</a></li>
           <li><a href="/musicians/" class="nav-link">Musicians</a></li>
+          <li><a href="/guest-artists/" class="nav-link">Guest Artists</a></li>
+          <li><a href="/media/" class="nav-link">Media</a></li>
           <li><a href="/events/" class="nav-link" aria-current="page">Events</a></li>
           <li><a href="/contact/" class="nav-link">Contact</a></li>
         </ul>
@@ -43,19 +214,420 @@
     </div>
   </header>
 
+  <!-- ===========================================================================
+    MAIN CONTENT
+    =========================================================================== -->
   <main id="main-content">
-    <section class="placeholder-content">
-      <h1>Upcoming Events</h1>
-      <p>
-        We're building a complete events calendar. In the meantime, check out our 
-        featured upcoming performances on the home page, or contact us directly 
-        for our full schedule.
-      </p>
-      <div class="mt-8">
-        <a href="/#upcoming-events" class="btn btn--primary">See Featured Events</a>
-        <a href="/contact/" class="btn btn--secondary" style="margin-left: 1rem;">Contact for Schedule</a>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Events</h1>
+        <p>Save the dates! View our upcoming performances and explore our rich history of past events.</p>
       </div>
     </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="section" aria-labelledby="upcoming-heading">
+      <div class="container">
+        <div class="events-section">
+          <h2 id="upcoming-heading" class="section-title">Upcoming Events</h2>
+          
+          <div id="events-container" class="upcoming-events-grid" role="list" aria-label="Upcoming events">
+            <noscript>
+              <p>
+                Please enable JavaScript to see our upcoming events, or 
+                <a href="/contact/">contact us</a> for performance information.
+              </p>
+            </noscript>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Past Events Section -->
+    <section class="section past-events-section" aria-labelledby="past-heading">
+      <div class="container">
+        <div class="events-section">
+          <h2 id="past-heading" class="section-title">Been There, Done That!</h2>
+          <p style="margin-bottom: var(--space-8); color: var(--color-text-light);">
+            Explore our archive of past performances dating back to 2008.
+          </p>
+          
+          <!-- 2025 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="true" aria-controls="events-2025">
+              <span>2025 <span class="event-count">(2 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2025" class="year-events is-open">
+              <div class="past-event">
+                <div class="past-event-date">November 2, 2025</div>
+                <div class="past-event-title">Remembering the Sounds of the Great Big Bands</div>
+                <p class="past-event-description">The final concert of the season took audiences on a journey through the decades of Big Band Music, from Glenn Miller's classics to Chuck Mangione's hits.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 23, 2025</div>
+                <div class="past-event-title">Groove Junction: Jazz Edition</div>
+                <p class="past-event-description">Explored everything from traditional New Orleans street beat to swing, Latin, rock, and fusion to a sold out venue at the Yardbird Suite.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2024 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2024">
+              <span>2024 <span class="event-count">(4 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2024" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">November 3, 2024</div>
+                <div class="past-event-title">Fall Leaves</div>
+                <p class="past-event-description">With special guests Joel Gray (conductor) and Chandelle Rimmer (vocals), the band opened the 2024/2025 season with the sounds of Fall at the Yardbird Suite.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 5, 2024</div>
+                <div class="past-event-title">The Planets and Beyond</div>
+                <p class="past-event-description">Sold out show featuring six new commissioned works and the world premiere of Gustav Holst's "The Planets" reimagined for Big Band by Allan Gilliland.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">March 16, 2024</div>
+                <div class="past-event-title">Horizon Stage Performance</div>
+                <p class="past-event-description">Performance at the Horizon Stage in Spruce Grove.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 4, 2024</div>
+                <div class="past-event-title">Jazzy Friends: Larry Schrum</div>
+                <p class="past-event-description">Sold out show at the Yardbird Suite featuring former Music Director and good friend Larry Schrum.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2023 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2023">
+              <span>2023 <span class="event-count">(4 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2023" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">December 9, 2023</div>
+                <div class="past-event-title">A Jazzy Christmas</div>
+                <p class="past-event-description">Annual holiday performance with the River City Big Band.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 7, 2023</div>
+                <div class="past-event-title">Latin Roots and Dynamic Grooves</div>
+                <p class="past-event-description">Sold out show at the Yardbird Suite with special guests Manny Valencia, Rene Abaunza, and Nathan Ouellette.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">March 15, 2023</div>
+                <div class="past-event-title">Alberta International Band Festival</div>
+                <p class="past-event-description">Performance with Edmonton Winds at the Alberta International Band Festival.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 5, 2023</div>
+                <div class="past-event-title">Pictures, Planets and the RCBB</div>
+                <p class="past-event-description">When Big Band Jazz Meets Classical! Classic themes through a jazz lens - swing, latin, and fusion interpretations of symphonic music.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2022 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2022">
+              <span>2022 <span class="event-count">(3 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2022" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">October 30, 2022</div>
+                <div class="past-event-title">Ellington: Artistry &amp; Influence</div>
+                <p class="past-event-description">Full house at the Yardbird Suite celebrating music written, arranged, and inspired by Duke Ellington and the Ellington Big Band.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">September 18, 2022</div>
+                <div class="past-event-title">The Fab Four and More</div>
+                <p class="past-event-description">Main stage at the Kaleido Family Arts Festival featuring Beatles hits re-imagined for jazz orchestra.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 15, 2022</div>
+                <div class="past-event-title">Full Spectrum: The Evolution of the Big Band</div>
+                <p class="past-event-description">Kicking off the 2022 season with the changing sounds of big bands from the 1920s to the early 2000s.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2021 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2021">
+              <span>2021 <span class="event-count">(1 event)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2021" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">November 21, 2021</div>
+                <div class="past-event-title">Basie Straight Ahead and More</div>
+                <p class="past-event-description">After over a year away from the stage, RCBB returned to a sold out show at the Yardbird Suite, recreating two of the greatest recordings by the Count Basie Orchestra.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2020 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2020">
+              <span>2020 <span class="event-count">(2 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2020" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">January 26, 2020</div>
+                <div class="past-event-title">The Fab Four and More (Show #2)</div>
+                <p class="past-event-description">Beatles hits re-imagined for jazz orchestra, featuring guest vocalist and guitarist Robert Walsh.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">January 25, 2020</div>
+                <div class="past-event-title">The Fab Four and More</div>
+                <p class="past-event-description">Beatles hits re-imagined for jazz orchestra.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2019 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2019">
+              <span>2019 <span class="event-count">(5 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2019" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">October 20, 2019</div>
+                <div class="past-event-title">The Magic of Miles</div>
+                <p class="past-event-description">Sold out show at the Yardbird Suite honoring Miles Davis and his legendary sound.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">September 14, 2019</div>
+                <div class="past-event-title">Kaleido Family Arts Festival</div>
+                <p class="past-event-description">Performance featuring the big hits from the 70s.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 22, 2019</div>
+                <div class="past-event-title">Here Comes the 70s</div>
+                <p class="past-event-description">Horn band hits of Stevie Wonder and more at Fort Edmonton Park, featuring vocalist Bernard Quilala.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 20, 2019</div>
+                <div class="past-event-title">Oh Canada!</div>
+                <p class="past-event-description">A celebration of Canadian Big Band Jazz featuring special guest Kent Sangster.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">December 19, 2018</div>
+                <div class="past-event-title">A Swingin' Christmas &amp; Cool Yule</div>
+                <p class="past-event-description">With musical director Raymond Baril and vocalist Chandelle Rimmer, plus opening guest performance by W.P. Wagner High School Jazz Band.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2018 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2018">
+              <span>2018 <span class="event-count">(4 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2018" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">October 21, 2018</div>
+                <div class="past-event-title">Woody Meets Stan</div>
+                <p class="past-event-description">The music of the Herman and Kenton Big Bands through the decades. Packed house celebrating 5 decades of iconic music.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 12, 2018</div>
+                <div class="past-event-title">Big Band Steely Dan Jazz</div>
+                <p class="past-event-description">Fabulous arrangements from the legendary band Steely Dan.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 17, 2018</div>
+                <div class="past-event-title">Maria Manna - Jazz at the Oasis</div>
+                <p class="past-event-description">Musical tribute to Natalie Cole and fundraiser for the Kidney Foundation.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 20, 2018</div>
+                <div class="past-event-title">Kent Sangster - Oh Canada!</div>
+                <p class="past-event-description">Featuring Edmonton's own saxophonist, composer, and arranger Kent Sangster.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2017 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2017">
+              <span>2017 <span class="event-count">(5 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2017" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">October 28, 2017</div>
+                <div class="past-event-title">Eric Marienthal - Jazz at the Oasis</div>
+                <p class="past-event-description">Featuring 2-time Grammy Award-winning saxophonist Eric Marienthal.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">October 27, 2017</div>
+                <div class="past-event-title">Music Conference Alberta</div>
+                <p class="past-event-description">Special event performance with guest artist Eric Marienthal.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">June 11, 2017</div>
+                <div class="past-event-title">Joint Concert with Gateway Big Band</div>
+                <p class="past-event-description">Year-end joint concert at Riverdale Community Hall.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">March 15, 2017</div>
+                <div class="past-event-title">Alberta International Band Festivals</div>
+                <p class="past-event-description">Feature Artist concert at AIBF 2017.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 11, 2017</div>
+                <div class="past-event-title">Tommy Banks &amp; Mallory Chipman</div>
+                <p class="past-event-description">Sold out Jazz at the Oasis concert featuring legendary pianist Tommy Banks and special guest Mallory Chipman.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2016 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2016">
+              <span>2016 <span class="event-count">(5 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2016" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">October 22, 2016</div>
+                <div class="past-event-title">Wayne Bergeron - Jazz at the Oasis</div>
+                <p class="past-event-description">Season opener featuring the legendary trumpeter Wayne Bergeron.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">October 21, 2016</div>
+                <div class="past-event-title">Music Conference Alberta</div>
+                <p class="past-event-description">Special event in Banff, Alberta with guest artist Wayne Bergeron.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">June 4, 2016</div>
+                <div class="past-event-title">Triple Big Band Event</div>
+                <p class="past-event-description">Concert with The Westwinds Jazz Band from Calgary and the St. Albert Community Band.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">April 30, 2016</div>
+                <div class="past-event-title">Two Blue - Jazz at the Oasis</div>
+                <p class="past-event-description">Final show of the series featuring Canada's hottest Blues duo, Two Blue.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">February 13, 2016</div>
+                <div class="past-event-title">Carol Welsman - Jazz at the Oasis</div>
+                <p class="past-event-description">Full house performance with one of Canada's premier jazz vocalists.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2015 -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-2015">
+              <span>2015 <span class="event-count">(6 events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-2015" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">December 19, 2015</div>
+                <div class="past-event-title">Christmas Special - Horizon Theatre</div>
+                <p class="past-event-description">Sold out Christmas show in Spruce Grove.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">December 17, 2015</div>
+                <div class="past-event-title">Christmas Special - Yardbird Suite</div>
+                <p class="past-event-description">Jazzy Christmas Show at the Yardbird Suite.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">December 11, 2015</div>
+                <div class="past-event-title">Christmas Special - Dow Centennial Centre</div>
+                <p class="past-event-description">Jazzy Christmas Show at the Shell Theatre.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">October 17, 2015</div>
+                <div class="past-event-title">Wycliffe Gordon - Jazz at the Oasis</div>
+                <p class="past-event-description">20th anniversary season opener with Wycliffe Gordon, World's #1 trombone player (Downbeat Magazine 2012-2014).</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 28, 2015</div>
+                <div class="past-event-title">Season Finale - Yardbird Suite</div>
+                <p class="past-event-description">Sold out 2015 Season Finale Show.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">May 9, 2015</div>
+                <div class="past-event-title">Big Band Double Bill</div>
+                <p class="past-event-description">Joint concert with Calgary's Westwinds Jazz Orchestra.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 2014 and earlier - collapsed summary -->
+          <div class="year-group">
+            <button class="year-header" aria-expanded="false" aria-controls="events-earlier">
+              <span>2008-2014 <span class="event-count">(50+ events)</span></span>
+              <span class="year-toggle" aria-hidden="true">▼</span>
+            </button>
+            <div id="events-earlier" class="year-events">
+              <div class="past-event">
+                <div class="past-event-date">2014</div>
+                <div class="past-event-title">Edmonton International Jazz Festival</div>
+                <p class="past-event-description">Three big bands, one stage at the Big Band Event.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2013</div>
+                <div class="past-event-title">CD Release - "River"</div>
+                <p class="past-event-description">Release party for second CD at St. Albert's Arden Theatre with Chandelle Rimmer.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2012</div>
+                <div class="past-event-title">Brassfire with Jens Lindemann</div>
+                <p class="past-event-description">Festival Place performance with trumpet soloist Jens Lindemann and vocalist Chandelle Rimmer.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2011</div>
+                <div class="past-event-title">Come Fly With Me</div>
+                <p class="past-event-description">Tribute to big band singers at Festival Place with Chandelle Rimmer and Johan Brinkman.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2010</div>
+                <div class="past-event-title">CD Release - "Just Friends"</div>
+                <p class="past-event-description">First CD release party at the Yardbird Suite. Standing room only with Chandelle Rimmer and Nathan Hay.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2010</div>
+                <div class="past-event-title">Simone on Simone</div>
+                <p class="past-event-description">Sold out show at Festival Place with Nina Simone's daughter performing a retrospective of her mother's music.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2009</div>
+                <div class="past-event-title">The Big Band Hits of World War II</div>
+                <p class="past-event-description">Festival Place and Westlock Cultural Arts Theatre with narrator Colin MacLean and vocalist Chandelle Rimmer.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">2008</div>
+                <div class="past-event-title">A Jazzy Christmas - Winspear Centre</div>
+                <p class="past-event-description">Inaugural major venue performance with vocalist Shelley Jones and host Colin MacLean.</p>
+              </div>
+              <div class="past-event">
+                <div class="past-event-date">October 2008</div>
+                <div class="past-event-title">Jazz! - Yardbird Suite</div>
+                <p class="past-event-description">Early performance featuring vocalist Chandelle Rimmer at Edmonton's landmark jazz venue.</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
     <!-- NEWSLETTER SECTION -->
     <section class="section newsletter-section section--dark" aria-labelledby="newsletter-heading">
       <div class="container">
@@ -75,14 +647,18 @@
         </form>
       </div>
     </section>
+
   </main>
 
+  <!-- ===========================================================================
+    FOOTER
+    =========================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
           <h3>River City Big Band</h3>
-          <p>Bringing the timeless sound of classic big band jazz to audiences throughout the region.</p>
+          <p>Edmonton's premier big band jazz organization, keeping the swing era alive since 2008.</p>
         </div>
         
         <div class="footer-section">
@@ -90,30 +666,42 @@
           <nav class="footer-nav" aria-label="Footer navigation">
             <a href="/" class="footer-link">Home</a>
             <a href="/about/" class="footer-link">About</a>
-            <a href="/media/" class="footer-link">Media</a>
             <a href="/musicians/" class="footer-link">Musicians</a>
+            <a href="/guest-artists/" class="footer-link">Guest Artists</a>
+            <a href="/media/" class="footer-link">Media</a>
             <a href="/events/" class="footer-link">Events</a>
             <a href="/contact/" class="footer-link">Contact</a>
           </nav>
         </div>
         
         <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>For booking inquiries:</p>
-          <p><a href="/contact/" class="footer-link">Contact Us →</a></p>
+          <h3>Get in Touch</h3>
+          <p>For booking inquiries and questions:</p>
+          <p><a href="/contact/" class="footer-link">Contact Us</a></p>
         </div>
         
         <div class="footer-section">
           <h3>Follow Us</h3>
           <div class="social-links">
             <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">f</span>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
             </a>
-            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">X</span>
+            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
             </a>
             <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">▶</span>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            <a href="https://soundcloud.com/therivercitybigband" class="social-link" aria-label="SoundCloud" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.084-.1zm-.899 1.463c-.06 0-.091.037-.104.094L0 14.479l.165.71c.013.057.045.094.09.094s.089-.037.099-.094l.225-.71-.225-.699c-.013-.057-.052-.091-.078-.091zm1.83-1.259c-.061 0-.12.045-.12.104l-.21 2.563.225 2.458c0 .06.045.104.106.104.061 0 .12-.044.12-.104l.24-2.458-.24-2.563c0-.06-.059-.104-.121-.104zm.945-.089c-.075 0-.135.06-.15.135l-.193 2.64.21 2.544c.016.077.075.138.149.138.075 0 .135-.061.15-.138l.24-2.544-.24-2.64c-.015-.075-.06-.135-.166-.135zm.96-.105c-.09 0-.165.075-.18.165l-.165 2.745.18 2.535c.015.09.075.149.165.149s.165-.06.18-.149l.195-2.535-.195-2.745c-.015-.09-.075-.165-.18-.165zm.975-.015c-.105 0-.18.075-.195.18l-.15 2.775.165 2.52c.015.105.09.18.18.18.105 0 .18-.075.195-.18l.18-2.52-.18-2.775c-.015-.105-.09-.18-.195-.18zm1.02-.015c-.12 0-.21.09-.225.21l-.135 2.79.15 2.505c.015.12.105.21.21.21.12 0 .21-.09.225-.21l.165-2.505-.165-2.79c-.015-.12-.105-.21-.225-.21zm1.035.18c-.135 0-.24.105-.24.24l-.12 2.61.135 2.49c0 .135.105.24.225.24.135 0 .24-.105.24-.24l.15-2.49-.15-2.61c0-.135-.105-.24-.24-.24zm1.05-.72c-.15 0-.27.12-.27.27l-.12 3.33.135 2.475c0 .15.12.27.255.27.15 0 .27-.12.27-.27l.135-2.475-.135-3.33c0-.15-.12-.27-.27-.27zm1.065.165c-.165 0-.285.12-.285.285l-.105 3.165.12 2.46c0 .165.12.285.27.285.165 0 .285-.12.3-.285l.12-2.46-.12-3.165c-.015-.165-.135-.285-.3-.285zm1.065-.165c-.18 0-.315.135-.315.315l-.09 3.33.105 2.445c0 .18.135.315.3.315.18 0 .315-.135.315-.315l.12-2.445-.12-3.33c0-.18-.135-.315-.315-.315zm1.095-.015c-.195 0-.345.15-.345.345l-.075 3.345.09 2.43c0 .195.15.345.33.345.195 0 .345-.15.345-.345l.105-2.43-.105-3.345c0-.195-.15-.345-.345-.345zm1.11.03c-.21 0-.36.15-.375.36l-.06 3.315.075 2.415c.015.21.165.36.36.36.21 0 .375-.15.375-.36l.09-2.415-.09-3.315c0-.21-.165-.36-.375-.36zm1.095-.09c-.225 0-.39.165-.39.39l-.06 3.405.075 2.4c0 .225.165.39.375.39.225 0 .39-.165.405-.39l.075-2.4-.075-3.405c-.015-.225-.18-.39-.405-.39zm1.14.045c-.24 0-.42.18-.42.42l-.045 3.36.06 2.385c0 .24.18.42.405.42.24 0 .42-.18.435-.42l.06-2.385-.06-3.36c-.015-.24-.195-.42-.435-.42zm1.11-.09c-.255 0-.45.195-.45.45l-.03 3.45.045 2.37c0 .255.195.45.435.45.255 0 .45-.195.465-.45l.045-2.37-.045-3.45c-.015-.255-.21-.45-.465-.45zm1.17.135c-.27 0-.48.21-.48.48l-.03 3.315.045 2.355c0 .27.21.48.465.48.27 0 .48-.21.48-.48l.045-2.355-.045-3.315c0-.27-.21-.48-.48-.48zm1.14-.12c-.285 0-.51.225-.51.51l-.015 3.435.03 2.34c0 .285.225.51.495.51.285 0 .51-.225.525-.51l.03-2.34-.03-3.435c-.015-.285-.24-.51-.525-.51zm1.185.165c-.3 0-.525.225-.54.525l-.015 3.27.03 2.325c.015.3.24.525.525.525.3 0 .54-.225.54-.525l.03-2.325-.03-3.27c0-.3-.24-.525-.54-.525zm4.11 1.605c-.555 0-1.08.12-1.56.33-.3-3.42-3.135-6.105-6.63-6.105-.9 0-1.755.18-2.535.51-.3.12-.375.24-.39.48v12.045c.015.255.195.465.45.495h10.665c1.92 0 3.48-1.56 3.48-3.48 0-1.92-1.56-3.48-3.48-3.48v-.795z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -125,7 +713,12 @@
     </div>
   </footer>
 
+  <!-- ===========================================================================
+    JAVASCRIPT
+    =========================================================================== -->
+  <script src="../events.js"></script>
   <script>
+    /* Navigation Toggle for Mobile */
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('.main-nav');
     
@@ -135,6 +728,7 @@
       mainNav.classList.toggle('is-open');
     });
     
+    /* Close nav when clicking outside */
     document.addEventListener('click', function(event) {
       if (!mainNav.contains(event.target) && !navToggle.contains(event.target)) {
         navToggle.setAttribute('aria-expanded', 'false');
@@ -142,9 +736,78 @@
       }
     });
     
+    /* Year accordion toggle */
+    const yearHeaders = document.querySelectorAll('.year-header');
+    
+    yearHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        const targetId = this.getAttribute('aria-controls');
+        const target = document.getElementById(targetId);
+        
+        this.setAttribute('aria-expanded', !isExpanded);
+        target.classList.toggle('is-open');
+      });
+    });
+    
+    /* Events Display - Upcoming Events */
+    const eventsContainer = document.getElementById('events-container');
+    
+    if (typeof upcomingEvents !== 'undefined' && eventsContainer) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const futureEvents = upcomingEvents
+        .filter(event => new Date(event.date) >= today)
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+      
+      if (futureEvents.length === 0) {
+        eventsContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--color-white); border-radius: var(--border-radius-lg); box-shadow: 0 2px 8px var(--color-shadow);">
+            <p style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--color-text);">
+              New shows coming soon!
+            </p>
+            <p style="color: var(--color-text-light);">
+              Follow us on <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" target="_blank" rel="noopener">Facebook</a> 
+              to be the first to know about upcoming performances.
+            </p>
+          </div>
+        `;
+      } else {
+        const eventsHTML = futureEvents.map(event => {
+          const eventDate = new Date(event.date);
+          const day = eventDate.getDate();
+          const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
+          
+          const ticketButton = event.ticketLink 
+            ? `<a href="${event.ticketLink}" class="btn btn--primary btn--sm" target="_blank" rel="noopener noreferrer">Get Tickets</a>`
+            : '';
+          
+          return `
+            <article class="event-card" role="listitem">
+              <div class="event-date">
+                <span class="event-date-day">${day}</span>
+                <span class="event-date-month">${month}</span>
+              </div>
+              <h3 class="event-title">${event.venue}</h3>
+              <p class="event-time">${event.time}</p>
+              <p class="event-venue">${event.displayDate}</p>
+              ${event.address ? `<p class="event-address">${event.address}</p>` : ''}
+              <p class="event-description">${event.description}</p>
+              <div class="event-actions">
+                ${ticketButton}
+              </div>
+            </article>
+          `;
+        }).join('');
+        
+        eventsContainer.innerHTML = eventsHTML;
+      }
+    }
+    
+    /* Dynamic Year */
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-

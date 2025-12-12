@@ -1,37 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- =============================================================================
-  RIVER CITY BIG BAND - DISCOGRAPHY PAGE (PLACEHOLDER)
+  RIVER CITY BIG BAND - DISCOGRAPHY PAGE
+  =============================================================================
+  
+  This page showcases the band's recorded albums with track listings and
+  purchase links. Currently features two albums: "River" (2012) and 
+  "Just Friends" (2010).
+  
+  Content sourced from: discography.md
+  
   =========================================================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Discography | River City Big Band</title>
-  <meta name="description" content="Listen to River City Big Band's recordings and albums. Explore our discography of classic big band jazz.">
+  <meta name="description" content="Listen to River City Big Band's recordings. Featuring albums 'River' (2012) and 'Just Friends' (2010), available on iTunes, CDBaby, and more.">
   
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
   
+  <!-- Page-specific styles -->
   <style>
-    .breadcrumb {
-      padding: 1rem 0;
-      font-size: 0.875rem;
+    /* -------------------------------------------------------------------------
+     * PAGE HEADER
+     * ----------------------------------------------------------------------- */
+    .page-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      color: var(--color-text-on-dark);
+      padding: var(--space-16) var(--space-4) var(--space-12);
+      text-align: center;
     }
+    
+    .page-header h1 {
+      color: var(--color-text-on-dark);
+      margin-bottom: var(--space-4);
+    }
+    
+    .page-header .tagline {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: var(--text-xl);
+      color: var(--color-brass-light);
+    }
+    
+    /* -------------------------------------------------------------------------
+     * BREADCRUMB
+     * ----------------------------------------------------------------------- */
+    .breadcrumb {
+      padding: var(--space-4) 0;
+      font-size: var(--text-sm);
+    }
+    
     .breadcrumb a {
       color: var(--color-brass-dark);
     }
+    
     .breadcrumb span {
       color: var(--color-text-light);
-      margin: 0 0.5rem;
+      margin: 0 var(--space-2);
+    }
+    
+    /* -------------------------------------------------------------------------
+     * ALBUM CARDS
+     * ----------------------------------------------------------------------- */
+    .albums-container {
+      display: grid;
+      gap: var(--space-10);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .album-card {
+      background: var(--color-white);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--color-shadow);
+    }
+    
+    .album-header {
+      display: grid;
+      gap: var(--space-6);
+      padding: var(--space-6);
+      background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-white) 100%);
+    }
+    
+    @media (min-width: 640px) {
+      .album-header {
+        grid-template-columns: 200px 1fr;
+        align-items: start;
+      }
+    }
+    
+    /* Album artwork placeholder */
+    .album-artwork {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-brass-light);
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      text-align: center;
+      padding: var(--space-4);
+      margin: 0 auto;
+    }
+    
+    @media (min-width: 640px) {
+      .album-artwork {
+        margin: 0;
+      }
+    }
+    
+    .album-info h2 {
+      font-size: var(--text-2xl);
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+    
+    .album-meta {
+      font-size: var(--text-sm);
+      color: var(--color-text-light);
+      margin-bottom: var(--space-4);
+    }
+    
+    .album-description {
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+    
+    /* Purchase links */
+    .purchase-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+    
+    .purchase-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-primary);
+      color: var(--color-text-on-dark);
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      transition: background-color var(--transition-fast);
+    }
+    
+    .purchase-link:hover,
+    .purchase-link:focus {
+      background: var(--color-primary-dark);
+      color: var(--color-text-on-dark);
+    }
+    
+    /* -------------------------------------------------------------------------
+     * TRACK LISTING
+     * ----------------------------------------------------------------------- */
+    .track-listing {
+      padding: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    
+    .track-listing h3 {
+      font-size: var(--text-lg);
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+    
+    .tracks {
+      list-style: none;
+    }
+    
+    .track {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    .track:last-child {
+      border-bottom: none;
+    }
+    
+    .track-number {
+      font-weight: var(--font-semibold);
+      color: var(--color-brass-dark);
+      min-width: 2rem;
+    }
+    
+    .track-title {
+      flex: 1;
+      color: var(--color-text);
+    }
+    
+    .track-duration {
+      color: var(--color-text-light);
+      font-size: var(--text-sm);
+      font-family: monospace;
+    }
+    
+    /* -------------------------------------------------------------------------
+     * SOUNDCLOUD SECTION
+     * ----------------------------------------------------------------------- */
+    .listen-section {
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, #0A1414 100%);
+      padding: var(--space-12) var(--space-4);
+      text-align: center;
+    }
+    
+    .listen-section h2 {
+      color: var(--color-text-on-dark);
+      margin-bottom: var(--space-2);
+    }
+    
+    .listen-section p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-8);
+    }
+    
+    .soundcloud-embed {
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
 
 <body>
+  <!-- Skip Link for Accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- ===========================================================================
+    HEADER & NAVIGATION
+    =========================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="site-logo" aria-label="River City Big Band - Home">
@@ -48,8 +262,9 @@
         <ul class="nav-list">
           <li><a href="/" class="nav-link">Home</a></li>
           <li><a href="/about/" class="nav-link">About</a></li>
-          <li><a href="/media/" class="nav-link" aria-current="page">Media</a></li>
           <li><a href="/musicians/" class="nav-link">Musicians</a></li>
+          <li><a href="/guest-artists/" class="nav-link">Guest Artists</a></li>
+          <li><a href="/media/" class="nav-link" aria-current="page">Media</a></li>
           <li><a href="/events/" class="nav-link">Events</a></li>
           <li><a href="/contact/" class="nav-link">Contact</a></li>
         </ul>
@@ -57,7 +272,12 @@
     </div>
   </header>
 
+  <!-- ===========================================================================
+    MAIN CONTENT
+    =========================================================================== -->
   <main id="main-content">
+    
+    <!-- Breadcrumb -->
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/media/">Media</a>
@@ -66,17 +286,242 @@
       </nav>
     </div>
     
-    <section class="placeholder-content">
-      <h1>Discography</h1>
-      <p>
-        We're compiling our complete discography. Soon you'll be able to explore 
-        our recordings, listen to samples, and find links to streaming platforms.
-      </p>
-      <div class="mt-8">
-        <a href="/media/" class="btn btn--primary">Back to Media</a>
-        <a href="/" class="btn btn--secondary" style="margin-left: 1rem;">Return to Home</a>
+    <!-- Page Header -->
+    <section class="page-header" style="padding-top: var(--space-8);">
+      <div class="container">
+        <h1>Discography</h1>
+        <p class="tagline">Let's Play!</p>
       </div>
     </section>
+
+    <!-- Albums Section -->
+    <section class="section" aria-labelledby="albums-heading">
+      <div class="container">
+        <h2 id="albums-heading" class="sr-only">Our Albums</h2>
+        
+        <div class="albums-container">
+          
+          <!-- ALBUM: RIVER (2012) -->
+          <article class="album-card">
+            <div class="album-header">
+              <!-- 
+                IMAGE PLACEHOLDER: Album artwork for "River"
+                Recommended size: 400x400px
+                File needed: images/album-river.jpg
+              -->
+              <div class="album-artwork" aria-label="River album artwork">
+                River<br>(2012)
+              </div>
+              
+              <div class="album-info">
+                <h2>River</h2>
+                <p class="album-meta">Recorded at DanLyn Studios, February 2012</p>
+                <p class="album-description">
+                  Featuring original compositions and arrangements by Allan Gilliland and Larry Schrum, 
+                  with vocalist Chandelle Rimmer.
+                </p>
+                
+                <div class="purchase-links">
+                  <a href="https://geo.itunes.apple.com/us/album/river/id1281330218?mt=1&app=music" 
+                     class="purchase-link" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     aria-label="Buy River on Apple Music">
+                    Apple Music
+                  </a>
+                  <a href="https://store.cdbaby.com/m/cd/rivercitybigband" 
+                     class="purchase-link" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     aria-label="Buy River on CD Baby">
+                    CD Baby
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="track-listing">
+              <h3>Track Listing</h3>
+              <ol class="tracks">
+                <li class="track">
+                  <span class="track-number">01.</span>
+                  <span class="track-title">The Way You Look Tonight</span>
+                  <span class="track-duration">5:44</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">02.</span>
+                  <span class="track-title">Colouration</span>
+                  <span class="track-duration">7:47</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">03.</span>
+                  <span class="track-title">Flying Fingers</span>
+                  <span class="track-duration">4:33</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">04.</span>
+                  <span class="track-title">Polka Dots and Moonbeams</span>
+                  <span class="track-duration">5:39</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">05.</span>
+                  <span class="track-title">Boo Boo Be Doop</span>
+                  <span class="track-duration">6:20</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">06.</span>
+                  <span class="track-title">A Night on the Hook</span>
+                  <span class="track-duration">8:35</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">07.</span>
+                  <span class="track-title">My Funny Valentine</span>
+                  <span class="track-duration">6:19</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">08.</span>
+                  <span class="track-title">Embraceable Ewe</span>
+                  <span class="track-duration">3:23</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">09.</span>
+                  <span class="track-title">Voodoo Bop</span>
+                  <span class="track-duration">6:46</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">10.</span>
+                  <span class="track-title">Bowie's Blues</span>
+                  <span class="track-duration">7:11</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">11.</span>
+                  <span class="track-title">River</span>
+                  <span class="track-duration">6:22</span>
+                </li>
+              </ol>
+            </div>
+          </article>
+          
+          <!-- ALBUM: JUST FRIENDS (2010) -->
+          <article class="album-card">
+            <div class="album-header">
+              <!-- 
+                IMAGE PLACEHOLDER: Album artwork for "Just Friends"
+                Recommended size: 400x400px
+                File needed: images/album-just-friends.jpg or .gif
+              -->
+              <div class="album-artwork" aria-label="Just Friends album artwork">
+                Just Friends<br>(2010)
+              </div>
+              
+              <div class="album-info">
+                <h2>Just Friends</h2>
+                <p class="album-meta">Recorded at DanLyn Studios, June 2010</p>
+                <p class="album-description">
+                  The debut album from River City Big Band, featuring compositions and arrangements 
+                  by Allan Gilliland and Larry Schrum.
+                </p>
+                
+                <div class="purchase-links">
+                  <a href="https://geo.itunes.apple.com/us/album/just-friends/id1209909426?mt=1&app=music" 
+                     class="purchase-link" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     aria-label="Buy Just Friends on Apple Music">
+                    Apple Music
+                  </a>
+                  <a href="https://store.cdbaby.com/m/cd/rivercitybigband2" 
+                     class="purchase-link" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     aria-label="Buy Just Friends on CD Baby">
+                    CD Baby
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="track-listing">
+              <h3>Track Listing</h3>
+              <ol class="tracks">
+                <li class="track">
+                  <span class="track-number">01.</span>
+                  <span class="track-title">Abanico</span>
+                  <span class="track-duration">6:13</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">02.</span>
+                  <span class="track-title">Just Friends</span>
+                  <span class="track-duration">3:46</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">03.</span>
+                  <span class="track-title">Beautiful Love</span>
+                  <span class="track-duration">5:03</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">04.</span>
+                  <span class="track-title">East of St. Louis Toodle-Oe</span>
+                  <span class="track-duration">4:30</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">05.</span>
+                  <span class="track-title">Nature Boy</span>
+                  <span class="track-duration">5:37</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">06.</span>
+                  <span class="track-title">Tom's Shuffle</span>
+                  <span class="track-duration">4:41</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">07.</span>
+                  <span class="track-title">A Touch of Olive and Brown</span>
+                  <span class="track-duration">6:21</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">08.</span>
+                  <span class="track-title">Beware the Mohawk Mystery Lady</span>
+                  <span class="track-duration">6:59</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">09.</span>
+                  <span class="track-title">Another Softly</span>
+                  <span class="track-duration">6:51</span>
+                </li>
+                <li class="track">
+                  <span class="track-number">10.</span>
+                  <span class="track-title">Petits Oiseaux</span>
+                  <span class="track-duration">9:21</span>
+                </li>
+              </ol>
+            </div>
+          </article>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- SoundCloud Listen Section -->
+    <section class="listen-section" aria-labelledby="listen-heading">
+      <div class="container">
+        <h2 id="listen-heading">Listen Now</h2>
+        <p>Stream a sample of our recordings on SoundCloud.</p>
+        
+        <div class="soundcloud-embed">
+          <iframe 
+            width="100%" 
+            height="166" 
+            scrolling="no" 
+            frameborder="no" 
+            allow="autoplay" 
+            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/therivercitybigband&color=%23c9a227&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
+            title="River City Big Band on SoundCloud"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
     <!-- NEWSLETTER SECTION -->
     <section class="section newsletter-section section--dark" aria-labelledby="newsletter-heading">
       <div class="container">
@@ -96,14 +541,18 @@
         </form>
       </div>
     </section>
+
   </main>
 
+  <!-- ===========================================================================
+    FOOTER
+    =========================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
           <h3>River City Big Band</h3>
-          <p>Bringing the timeless sound of classic big band jazz to audiences throughout the region.</p>
+          <p>Edmonton's premier big band jazz organization, keeping the swing era alive since 2008.</p>
         </div>
         
         <div class="footer-section">
@@ -111,30 +560,42 @@
           <nav class="footer-nav" aria-label="Footer navigation">
             <a href="/" class="footer-link">Home</a>
             <a href="/about/" class="footer-link">About</a>
-            <a href="/media/" class="footer-link">Media</a>
             <a href="/musicians/" class="footer-link">Musicians</a>
+            <a href="/guest-artists/" class="footer-link">Guest Artists</a>
+            <a href="/media/" class="footer-link">Media</a>
             <a href="/events/" class="footer-link">Events</a>
             <a href="/contact/" class="footer-link">Contact</a>
           </nav>
         </div>
         
         <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>For booking inquiries:</p>
-          <p><a href="/contact/" class="footer-link">Contact Us →</a></p>
+          <h3>Get in Touch</h3>
+          <p>For booking inquiries and questions:</p>
+          <p><a href="/contact/" class="footer-link">Contact Us</a></p>
         </div>
         
         <div class="footer-section">
           <h3>Follow Us</h3>
           <div class="social-links">
             <a href="https://www.facebook.com/pages/River-City-Big-Band/140394659353441" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">f</span>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
             </a>
-            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">X</span>
+            <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
             </a>
             <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">▶</span>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            <a href="https://soundcloud.com/therivercitybigband" class="social-link" aria-label="SoundCloud" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.084-.1zm-.899 1.463c-.06 0-.091.037-.104.094L0 14.479l.165.71c.013.057.045.094.09.094s.089-.037.099-.094l.225-.71-.225-.699c-.013-.057-.052-.091-.078-.091zm1.83-1.259c-.061 0-.12.045-.12.104l-.21 2.563.225 2.458c0 .06.045.104.106.104.061 0 .12-.044.12-.104l.24-2.458-.24-2.563c0-.06-.059-.104-.121-.104zm.945-.089c-.075 0-.135.06-.15.135l-.193 2.64.21 2.544c.016.077.075.138.149.138.075 0 .135-.061.15-.138l.24-2.544-.24-2.64c-.015-.075-.06-.135-.166-.135zm.96-.105c-.09 0-.165.075-.18.165l-.165 2.745.18 2.535c.015.09.075.149.165.149s.165-.06.18-.149l.195-2.535-.195-2.745c-.015-.09-.075-.165-.18-.165zm.975-.015c-.105 0-.18.075-.195.18l-.15 2.775.165 2.52c.015.105.09.18.18.18.105 0 .18-.075.195-.18l.18-2.52-.18-2.775c-.015-.105-.09-.18-.195-.18zm1.02-.015c-.12 0-.21.09-.225.21l-.135 2.79.15 2.505c.015.12.105.21.21.21.12 0 .21-.09.225-.21l.165-2.505-.165-2.79c-.015-.12-.105-.21-.225-.21zm1.035.18c-.135 0-.24.105-.24.24l-.12 2.61.135 2.49c0 .135.105.24.225.24.135 0 .24-.105.24-.24l.15-2.49-.15-2.61c0-.135-.105-.24-.24-.24zm1.05-.72c-.15 0-.27.12-.27.27l-.12 3.33.135 2.475c0 .15.12.27.255.27.15 0 .27-.12.27-.27l.135-2.475-.135-3.33c0-.15-.12-.27-.27-.27zm1.065.165c-.165 0-.285.12-.285.285l-.105 3.165.12 2.46c0 .165.12.285.27.285.165 0 .285-.12.3-.285l.12-2.46-.12-3.165c-.015-.165-.135-.285-.3-.285zm1.065-.165c-.18 0-.315.135-.315.315l-.09 3.33.105 2.445c0 .18.135.315.3.315.18 0 .315-.135.315-.315l.12-2.445-.12-3.33c0-.18-.135-.315-.315-.315zm1.095-.015c-.195 0-.345.15-.345.345l-.075 3.345.09 2.43c0 .195.15.345.33.345.195 0 .345-.15.345-.345l.105-2.43-.105-3.345c0-.195-.15-.345-.345-.345zm1.11.03c-.21 0-.36.15-.375.36l-.06 3.315.075 2.415c.015.21.165.36.36.36.21 0 .375-.15.375-.36l.09-2.415-.09-3.315c0-.21-.165-.36-.375-.36zm1.095-.09c-.225 0-.39.165-.39.39l-.06 3.405.075 2.4c0 .225.165.39.375.39.225 0 .39-.165.405-.39l.075-2.4-.075-3.405c-.015-.225-.18-.39-.405-.39zm1.14.045c-.24 0-.42.18-.42.42l-.045 3.36.06 2.385c0 .24.18.42.405.42.24 0 .42-.18.435-.42l.06-2.385-.06-3.36c-.015-.24-.195-.42-.435-.42zm1.11-.09c-.255 0-.45.195-.45.45l-.03 3.45.045 2.37c0 .255.195.45.435.45.255 0 .45-.195.465-.45l.045-2.37-.045-3.45c-.015-.255-.21-.45-.465-.45zm1.17.135c-.27 0-.48.21-.48.48l-.03 3.315.045 2.355c0 .27.21.48.465.48.27 0 .48-.21.48-.48l.045-2.355-.045-3.315c0-.27-.21-.48-.48-.48zm1.14-.12c-.285 0-.51.225-.51.51l-.015 3.435.03 2.34c0 .285.225.51.495.51.285 0 .51-.225.525-.51l.03-2.34-.03-3.435c-.015-.285-.24-.51-.525-.51zm1.185.165c-.3 0-.525.225-.54.525l-.015 3.27.03 2.325c.015.3.24.525.525.525.3 0 .54-.225.54-.525l.03-2.325-.03-3.27c0-.3-.24-.525-.54-.525zm4.11 1.605c-.555 0-1.08.12-1.56.33-.3-3.42-3.135-6.105-6.63-6.105-.9 0-1.755.18-2.535.51-.3.12-.375.24-.39.48v12.045c.015.255.195.465.45.495h10.665c1.92 0 3.48-1.56 3.48-3.48 0-1.92-1.56-3.48-3.48-3.48v-.795z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -146,7 +607,11 @@
     </div>
   </footer>
 
+  <!-- ===========================================================================
+    JAVASCRIPT
+    =========================================================================== -->
   <script>
+    /* Navigation Toggle for Mobile */
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('.main-nav');
     
@@ -156,6 +621,7 @@
       mainNav.classList.toggle('is-open');
     });
     
+    /* Close nav when clicking outside */
     document.addEventListener('click', function(event) {
       if (!mainNav.contains(event.target) && !navToggle.contains(event.target)) {
         navToggle.setAttribute('aria-expanded', 'false');
@@ -163,9 +629,9 @@
       }
     });
     
+    /* Dynamic Year */
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-

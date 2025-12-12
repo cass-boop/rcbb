@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- =============================================================================
-  RIVER CITY BIG BAND - ABOUT PAGE
+  RIVER CITY BIG BAND - GUEST ARTISTS PAGE
   =============================================================================
   
-  This page provides information about the River City Big Band, including
-  history, repertoire, notable performances, and accolades.
-  
-  Content sourced from: river-city-big-band.md
+  This page showcases the notable guest artists who have performed with RCBB
+  over 17+ years of performances. Artists are organized by instrument section.
   
   =========================================================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | River City Big Band</title>
-  <meta name="description" content="River City Big Band is one of the premier big bands in Alberta, performing with world-class artists including Bobby Shew, Wayne Bergeron, Eric Marienthal, and Tommy Banks.">
+  <title>Guest Artists | River City Big Band</title>
+  <meta name="description" content="Throughout 17+ years, River City Big Band has been privileged to share the stage with many great artists including Bobby Shew, Wayne Bergeron, Eric Marienthal, and Tommy Banks.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
   
   <!-- Page-specific styles -->
   <style>
     /* -------------------------------------------------------------------------
      * PAGE HEADER
+     * Full-width header with teal gradient background
      * ----------------------------------------------------------------------- */
     .page-header {
       background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
@@ -39,81 +38,78 @@
       margin-bottom: var(--space-4);
     }
     
-    .page-header .tagline {
-      font-family: var(--font-heading);
-      font-style: italic;
-      font-size: var(--text-xl);
-      color: var(--color-brass-light);
+    .page-header p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: var(--text-lg);
+      opacity: 0.9;
     }
     
     /* -------------------------------------------------------------------------
-     * ABOUT CONTENT
+     * ARTIST SECTIONS
+     * Each instrument section is displayed as a card with header and list
      * ----------------------------------------------------------------------- */
-    .about-content {
-      max-width: 800px;
+    .artists-container {
+      display: grid;
+      gap: var(--space-8);
+      max-width: 1000px;
       margin: 0 auto;
     }
     
-    .about-content p {
-      font-size: var(--text-lg);
-      line-height: var(--leading-relaxed);
-      margin-bottom: var(--space-6);
+    @media (min-width: 768px) {
+      .artists-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     
-    .about-content h2 {
-      margin-top: var(--space-10);
-      margin-bottom: var(--space-4);
+    @media (min-width: 1024px) {
+      .artists-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
     
-    /* -------------------------------------------------------------------------
-     * BLOCKQUOTE / TESTIMONIAL
-     * ----------------------------------------------------------------------- */
-    .testimonial {
-      background: var(--color-cream);
-      border-left: 4px solid var(--color-brass);
-      padding: var(--space-6) var(--space-8);
-      margin: var(--space-10) 0;
-      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    .artist-section {
+      background: var(--color-white);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-6);
+      box-shadow: 0 4px 12px var(--color-shadow);
+      border-top: 4px solid var(--color-brass);
     }
     
-    .testimonial blockquote {
-      font-family: var(--font-heading);
-      font-style: italic;
+    .artist-section h2 {
       font-size: var(--text-xl);
       color: var(--color-primary);
       margin-bottom: var(--space-4);
-      line-height: var(--leading-relaxed);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
     }
     
-    .testimonial cite {
-      display: block;
-      font-style: normal;
-      font-size: var(--text-base);
-      color: var(--color-text-light);
+    .artist-list {
+      list-style: none;
     }
     
-    .testimonial cite strong {
+    .artist-list li {
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--color-border);
       color: var(--color-text);
+    }
+    
+    .artist-list li:last-child {
+      border-bottom: none;
+    }
+    
+    /* Highlight for particularly notable artists */
+    .artist-featured {
+      font-weight: var(--font-semibold);
+      color: var(--color-primary);
     }
     
     /* -------------------------------------------------------------------------
      * CTA SECTION
      * ----------------------------------------------------------------------- */
-    .about-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-4);
-      margin-top: var(--space-10);
-      padding-top: var(--space-8);
-      border-top: 1px solid var(--color-border);
-    }
-    
-    /* -------------------------------------------------------------------------
-     * GUEST ARTISTS LIST (inline)
-     * ----------------------------------------------------------------------- */
-    .artist-highlight {
-      color: var(--color-primary);
-      font-weight: var(--font-semibold);
+    .guest-cta {
+      text-align: center;
+      margin-top: var(--space-8);
     }
   </style>
 </head>
@@ -140,9 +136,9 @@
       <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="/" class="nav-link">Home</a></li>
-          <li><a href="/about/" class="nav-link" aria-current="page">About</a></li>
+          <li><a href="/about/" class="nav-link">About</a></li>
           <li><a href="/musicians/" class="nav-link">Musicians</a></li>
-          <li><a href="/guest-artists/" class="nav-link">Guest Artists</a></li>
+          <li><a href="/guest-artists/" class="nav-link" aria-current="page">Guest Artists</a></li>
           <li><a href="/media/" class="nav-link">Media</a></li>
           <li><a href="/events/" class="nav-link">Events</a></li>
           <li><a href="/contact/" class="nav-link">Contact</a></li>
@@ -159,83 +155,112 @@
     <!-- Page Header -->
     <section class="page-header">
       <div class="container">
-        <h1>River City Big Band</h1>
-        <p class="tagline">A little bit about the band</p>
+        <h1>Guest Artists</h1>
+        <p>
+          Throughout 17+ years of performances, the River City Big Band has been 
+          privileged to share the stage with many great artists, including those named here.
+        </p>
       </div>
     </section>
 
-    <!-- About Content -->
-    <section class="section" aria-labelledby="about-heading">
+    <!-- Guest Artists Grid -->
+    <section class="section" aria-labelledby="artists-heading">
       <div class="container">
-        <div class="about-content">
+        <h2 id="artists-heading" class="sr-only">Guest Artists by Section</h2>
+        
+        <div class="artists-container">
           
-          <h2 id="about-heading" class="sr-only">About the Band</h2>
+          <!-- TRUMPETS -->
+          <div class="artist-section">
+            <h2>Trumpets</h2>
+            <ul class="artist-list">
+              <li class="artist-featured">Bobby Shew</li>
+              <li class="artist-featured">Wayne Bergeron</li>
+              <li class="artist-featured">Jens Lindemann</li>
+              <li>Jeff Jarvis</li>
+              <li>Joel Gray</li>
+              <li>Mike Vax</li>
+              <li>Vince Mai</li>
+            </ul>
+          </div>
           
-          <p>
-            The River City Big Band is one of the premier big bands in Alberta. We have 
-            performed throughout the province with artists including 
-            <span class="artist-highlight">Bobby Shew</span>, 
-            <span class="artist-highlight">Vince Mai</span>, 
-            <span class="artist-highlight">Kent Sangster</span>, 
-            <span class="artist-highlight">Mike Murley</span>, 
-            <span class="artist-highlight">PJ Perry</span>, 
-            <span class="artist-highlight">Bobby Cairns</span>, 
-            <span class="artist-highlight">Tommy Banks</span>, 
-            <span class="artist-highlight">Eric Marienthal</span>, 
-            <span class="artist-highlight">Wayne Bergeron</span>, 
-            <span class="artist-highlight">Wycliffe Gordon</span>, 
-            <span class="artist-highlight">Carol Welsman</span>, and 
-            <span class="artist-highlight">Jens Lindemann</span>.
-          </p>
+          <!-- SAXOPHONES -->
+          <div class="artist-section">
+            <h2>Saxophones</h2>
+            <ul class="artist-list">
+              <li class="artist-featured">Eric Marienthal</li>
+              <li class="artist-featured">PJ Perry</li>
+              <li class="artist-featured">Kent Sangster</li>
+              <li>George Hayden</li>
+              <li>Jim Brenan</li>
+              <li>Mike Murley</li>
+            </ul>
+          </div>
           
-          <h2>Our Repertoire</h2>
+          <!-- TROMBONES -->
+          <div class="artist-section">
+            <h2>Trombones</h2>
+            <ul class="artist-list">
+              <li class="artist-featured">Wycliffe Gordon</li>
+              <li>Alastair Kay</li>
+            </ul>
+          </div>
           
-          <p>
-            The repertoire of the RCBB is extensive, ranging from the big band standards 
-            of Duke Ellington and Stan Kenton to the music of some of today's most popular 
-            contemporary jazz composers such as Gordon Goodwin and Edmonton's own 
-            internationally renowned Allan Gilliland.
-          </p>
+          <!-- PIANO -->
+          <div class="artist-section">
+            <h2>Piano</h2>
+            <ul class="artist-list">
+              <li class="artist-featured">Tommy Banks</li>
+              <li>Matt Harris</li>
+            </ul>
+          </div>
           
-          <p>
-            The RCBB also plays original music and arrangements by members of the band.
-          </p>
+          <!-- VOCALS -->
+          <div class="artist-section">
+            <h2>Vocals</h2>
+            <ul class="artist-list">
+              <li class="artist-featured">Carol Welsman</li>
+              <li class="artist-featured">Mallory Chipman</li>
+              <li>Bartha Hartman</li>
+              <li>Chandelle Rimmer</li>
+              <li>Maria Manna</li>
+              <li>Rhonda Withnell</li>
+              <li>Shelley Jones</li>
+              <li>Simone</li>
+              <li>Two Blue</li>
+            </ul>
+          </div>
           
-          <h2>Our Recordings</h2>
+          <!-- RHYTHM SECTION -->
+          <div class="artist-section">
+            <h2>Rhythm</h2>
+            <ul class="artist-list">
+              <li>Brian Thurgood</li>
+            </ul>
+          </div>
           
-          <p>
-            The RCBB has released two CDs: <strong>"Just Friends"</strong> (2010) and 
-            <strong>"River"</strong> (2012), both of which largely feature the work of 
-            Allan Gilliland and Larry Schrum. These recordings are 
-            <a href="/discography/">available for purchase</a>.
-          </p>
-          
-          <!-- Testimonial Quote -->
-          <aside class="testimonial">
-            <blockquote>
-              "This is a strong semi-pro band that operates at a high level and plays great."
-            </blockquote>
-            <cite>
-              <strong>Allan Gilliland</strong><br>
-              Edmonton Journal, March 2013
-            </cite>
-          </aside>
-          
-          <h2>Stay Connected</h2>
-          
-          <p>
-            To stay current with the band's upcoming performances, check out our 
-            <a href="/events/">Upcoming Events</a> page or follow us on social media.
-          </p>
-          
-          <!-- CTAs -->
-          <div class="about-cta">
-            <a href="/musicians/" class="btn btn--primary">Meet Our Musicians</a>
-            <a href="/guest-artists/" class="btn btn--secondary">View Guest Artists</a>
-            <a href="/events/" class="btn btn--secondary">Upcoming Events</a>
+          <!-- DIRECTORS & NARRATORS -->
+          <div class="artist-section">
+            <h2>Directors &amp; Narrators</h2>
+            <ul class="artist-list">
+              <li>Armand Baril</li>
+              <li>Colin MacLean</li>
+              <li>Craig Brenan</li>
+              <li>Dennis Rusinak</li>
+              <li>Ken Moyer</li>
+            </ul>
           </div>
           
         </div>
+        
+        <!-- CTA -->
+        <div class="guest-cta">
+          <p style="color: var(--color-text-light); margin-bottom: var(--space-6);">
+            Want to see our current band members?
+          </p>
+          <a href="/musicians/" class="btn btn--primary">Meet Our Musicians</a>
+        </div>
+        
       </div>
     </section>
 
@@ -352,3 +377,4 @@
   </script>
 </body>
 </html>
+

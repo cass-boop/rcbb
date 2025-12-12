@@ -154,6 +154,15 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 350ms ease;
+  
+  /* -------------------------------------------------------------------------
+   * HOVER EFFECTS
+   * -------------------------------------------------------------------------
+   * Consistent hover states for cards and interactive elements.
+   * ----------------------------------------------------------------------- */
+  
+  --shadow-hover: 0 8px 24px rgba(15, 40, 40, 0.2);
+  --hover-lift: -3px;
 }
 
 
@@ -763,8 +772,8 @@ small {
 }
 
 .event-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px var(--color-shadow);
+  transform: translateY(var(--hover-lift));
+  box-shadow: var(--shadow-hover);
 }
 
 /* Event date - prominent display */
@@ -936,7 +945,7 @@ small {
 .btn--outline-light:hover,
 .btn--outline-light:focus {
   background-color: var(--color-text-on-dark);
-  color: var(--color-burgundy);
+  color: var(--color-primary-dark);
 }
 
 /* Small button variant */
@@ -1014,12 +1023,13 @@ small {
   color: var(--color-text-on-dark);
   border-radius: 50%;
   text-decoration: none;
-  transition: background-color var(--transition-fast);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .social-link:hover,
 .social-link:focus {
   background-color: var(--color-brass);
+  transform: translateY(-2px);
 }
 
 /* Copyright bar */
