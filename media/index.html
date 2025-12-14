@@ -40,6 +40,8 @@
       flex-direction: column;
       align-items: center;
       min-height: 280px;
+      position: relative;
+      overflow: hidden;
     }
     
     .media-card:hover,
@@ -52,6 +54,37 @@
     .media-card:focus {
       outline: 3px solid #C9A227;
       outline-offset: 4px;
+    }
+    
+    /* Discography card with background image */
+    /* NOTE: Replace this URL with a local image: ../images/vinyl-record.jpg */
+    .media-card--discography {
+      background: url('https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?w=800&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .media-card--discography::before,
+    .media-card--gallery::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 30, 30, 0.75);
+      z-index: 1;
+    }
+    
+    .media-card--discography > *,
+    .media-card--gallery > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Photo Gallery card with background image */
+    /* NOTE: Replace this URL with a local image: ../images/vintage-camera.jpg */
+    .media-card--gallery {
+      background: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80');
+      background-size: cover;
+      background-position: center;
     }
     
     .media-icon {
@@ -104,11 +137,11 @@
       <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="../" class="nav-link">Home</a></li>
-          <li><a href="../about/" class="nav-link">About</a></li>
+          <li><a href="../events/" class="nav-link">Events</a></li>
+          <li><a href="../media/" class="nav-link" aria-current="page">Media</a></li>
           <li><a href="../musicians/" class="nav-link">Musicians</a></li>
           <li><a href="../guest-artists/" class="nav-link">Guest Artists</a></li>
-          <li><a href="../media/" class="nav-link" aria-current="page">Media</a></li>
-          <li><a href="../events/" class="nav-link">Events</a></li>
+          <li><a href="../about/" class="nav-link">About</a></li>
           <li><a href="../contact/" class="nav-link">Contact</a></li>
         </ul>
       </nav>
@@ -124,15 +157,13 @@
         </div>
         
         <div class="media-grid">
-          <a href="../discography/" class="media-card">
-            <span class="media-icon" aria-hidden="true">🎵</span>
+          <a href="../discography/" class="media-card media-card--discography">
             <h2>Discography</h2>
             <p>Listen to our recordings and albums. From studio sessions to live captures, hear the River City Big Band sound.</p>
             <span class="arrow" aria-hidden="true">→</span>
           </a>
           
-          <a href="../gallery/" class="media-card">
-            <span class="media-icon" aria-hidden="true">📷</span>
+          <a href="../gallery/" class="media-card media-card--gallery">
             <h2>Photo Gallery</h2>
             <p>Browse photos from our performances, rehearsals, and community events. See the band in action!</p>
             <span class="arrow" aria-hidden="true">→</span>
@@ -173,11 +204,11 @@
           <h3>Quick Links</h3>
           <nav class="footer-nav" aria-label="Footer navigation">
             <a href="../" class="footer-link">Home</a>
-            <a href="../about/" class="footer-link">About</a>
+            <a href="../events/" class="footer-link">Events</a>
+            <a href="../media/" class="footer-link">Media</a>
             <a href="../musicians/" class="footer-link">Musicians</a>
             <a href="../guest-artists/" class="footer-link">Guest Artists</a>
-            <a href="../media/" class="footer-link">Media</a>
-            <a href="../events/" class="footer-link">Events</a>
+            <a href="../about/" class="footer-link">About</a>
             <a href="../contact/" class="footer-link">Contact</a>
           </nav>
         </div>
@@ -197,8 +228,10 @@
             <a href="https://twitter.com/RCBB_edmonton" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
               <span aria-hidden="true">X</span>
             </a>
-            <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">▶</span>
+            <a href="https://www.instagram.com/river_city_big_band/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
             </a>
           </div>
         </div>

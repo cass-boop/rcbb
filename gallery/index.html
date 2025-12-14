@@ -67,121 +67,196 @@
     }
     
     /* -------------------------------------------------------------------------
-     * GALLERY GRID
+     * PHOTO GRID
      * ----------------------------------------------------------------------- */
-    .gallery-grid {
+    .photo-grid {
       display: grid;
-      gap: var(--space-6);
+      gap: var(--space-4);
+      grid-template-columns: repeat(2, 1fr);
     }
     
-    @media (min-width: 480px) {
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (min-width: 768px) {
-      .gallery-grid {
+    @media (min-width: 640px) {
+      .photo-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
     
-    @media (min-width: 1024px) {
-      .gallery-grid {
+    @media (min-width: 900px) {
+      .photo-grid {
         grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-5);
+      }
+    }
+    
+    @media (min-width: 1100px) {
+      .photo-grid {
+        grid-template-columns: repeat(5, 1fr);
       }
     }
     
     /* -------------------------------------------------------------------------
-     * GALLERY CARDS
+     * PHOTO ITEMS
      * ----------------------------------------------------------------------- */
-    .gallery-card {
-      display: block;
-      background: var(--color-white);
+    .photo-item {
+      aspect-ratio: 1;
       border-radius: var(--border-radius-lg);
       overflow: hidden;
       box-shadow: 0 4px 12px var(--color-shadow);
-      text-decoration: none;
       transition: transform var(--transition-base), box-shadow var(--transition-base);
+      cursor: pointer;
     }
     
-    .gallery-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 32px var(--color-shadow);
+    .photo-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px var(--color-shadow);
     }
     
-    .gallery-card:focus {
-      outline: 3px solid var(--color-brass);
-      outline-offset: 2px;
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
-    /* Gallery card image placeholder */
-    .gallery-card-image {
-      aspect-ratio: 4/3;
+    /* Placeholder styling for images not yet added */
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
       background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--color-brass-light);
-      font-size: 3rem;
-      position: relative;
-    }
-    
-    /* Coming soon overlay */
-    .gallery-card-image::after {
-      content: 'Coming Soon';
-      position: absolute;
-      bottom: var(--space-2);
-      right: var(--space-2);
-      background: rgba(0, 0, 0, 0.6);
-      color: var(--color-text-on-dark);
-      font-size: var(--text-xs);
-      padding: var(--space-1) var(--space-2);
-      border-radius: var(--border-radius);
-    }
-    
-    .gallery-card-content {
-      padding: var(--space-4);
-    }
-    
-    .gallery-card-title {
-      font-family: var(--font-heading);
-      font-size: var(--text-lg);
-      font-weight: var(--font-bold);
-      color: var(--color-primary);
-      margin-bottom: var(--space-1);
-      line-height: var(--leading-tight);
-    }
-    
-    .gallery-card-date {
-      font-size: var(--text-sm);
-      color: var(--color-text-light);
-    }
-    
-    .gallery-card-photographer {
-      font-size: var(--text-xs);
-      color: var(--color-brass-dark);
-      font-style: italic;
-      margin-top: var(--space-2);
+      font-size: 2rem;
     }
     
     /* -------------------------------------------------------------------------
-     * FEATURED SECTION
+     * LIGHTBOX
      * ----------------------------------------------------------------------- */
-    .featured-galleries {
-      margin-bottom: var(--space-10);
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
     
-    .section-subtitle {
-      font-size: var(--text-xl);
-      color: var(--color-primary);
-      margin-bottom: var(--space-6);
-      padding-bottom: var(--space-3);
-      border-bottom: 2px solid var(--color-brass);
+    .lightbox[hidden] {
+      display: none;
     }
     
-    .archive-galleries {
-      margin-top: var(--space-10);
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      display: flex;
+    }
+    
+    .lightbox-image {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      animation: lightbox-fade-in 0.3s ease;
+      transition: opacity 0.15s ease;
+    }
+    
+    @keyframes lightbox-fade-in {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-close:hover,
+    .lightbox-close:focus {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      border-radius: var(--border-radius);
+      opacity: 0.8;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+      z-index: 1001;
+    }
+    
+    .lightbox-prev {
+      left: 1rem;
+    }
+    
+    .lightbox-next {
+      right: 1rem;
+    }
+    
+    .lightbox-prev:hover,
+    .lightbox-prev:focus,
+    .lightbox-next:hover,
+    .lightbox-next:focus {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .lightbox-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+    }
+    
+    /* Hide nav buttons on mobile, rely on swipe or tap sides */
+    @media (max-width: 640px) {
+      .lightbox-prev,
+      .lightbox-next {
+        padding: 0.75rem 1rem;
+        font-size: 1.5rem;
+      }
+      
+      .lightbox-close {
+        top: 0.5rem;
+        right: 0.75rem;
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
@@ -208,11 +283,11 @@
       <nav id="main-navigation" class="main-nav" aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="../" class="nav-link">Home</a></li>
-          <li><a href="../about/" class="nav-link">About</a></li>
+          <li><a href="../events/" class="nav-link">Events</a></li>
+          <li><a href="../media/" class="nav-link" aria-current="page">Media</a></li>
           <li><a href="../musicians/" class="nav-link">Musicians</a></li>
           <li><a href="../guest-artists/" class="nav-link">Guest Artists</a></li>
-          <li><a href="../media/" class="nav-link" aria-current="page">Media</a></li>
-          <li><a href="../events/" class="nav-link">Events</a></li>
+          <li><a href="../about/" class="nav-link">About</a></li>
           <li><a href="../contact/" class="nav-link">Contact</a></li>
         </ul>
       </nav>
@@ -241,214 +316,71 @@
       </div>
     </section>
 
-    <!-- Gallery Grid -->
-    <section class="section" aria-labelledby="galleries-heading">
+    <!-- Photo Gallery -->
+    <section class="section" aria-labelledby="gallery-heading">
       <div class="container">
-        <h2 id="galleries-heading" class="sr-only">Photo Galleries</h2>
+        <h2 id="gallery-heading" class="sr-only">Photos</h2>
         
-        <!-- Featured Guest Artist Galleries -->
-        <div class="featured-galleries">
-          <h3 class="section-subtitle">Guest Artist Performances</h3>
+        <div class="photo-grid">
           
-          <div class="gallery-grid">
-            
-            <!-- Wayne Bergeron -->
-            <a href="#" class="gallery-card" aria-label="View Wayne Bergeron gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Wayne Bergeron performance photos
-                Recommended: 400x300px minimum
-                File needed: images/gallery/wayne-bergeron-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎺</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Wayne Bergeron</h4>
-                <p class="gallery-card-date">October 2016</p>
-              </div>
-            </a>
-            
-            <!-- Eric Marienthal -->
-            <a href="#" class="gallery-card" aria-label="View Eric Marienthal gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Eric Marienthal performance photos
-                File needed: images/gallery/eric-marienthal-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎷</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Eric Marienthal</h4>
-                <p class="gallery-card-date">October 2017</p>
-              </div>
-            </a>
-            
-            <!-- Tommy Banks & Mallory Chipman -->
-            <a href="#" class="gallery-card" aria-label="View Tommy Banks and Mallory Chipman gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Tommy Banks performance photos
-                File needed: images/gallery/tommy-banks-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎹</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Tommy Banks &amp; Mallory Chipman</h4>
-                <p class="gallery-card-date">February 2017</p>
-              </div>
-            </a>
-            
-            <!-- Wycliffe Gordon -->
-            <a href="#" class="gallery-card" aria-label="View Wycliffe Gordon gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Wycliffe Gordon performance photos
-                File needed: images/gallery/wycliffe-gordon-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">📯</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Wycliffe Gordon</h4>
-                <p class="gallery-card-date">October 2015</p>
-              </div>
-            </a>
-            
-            <!-- Kent Sangster -->
-            <a href="#" class="gallery-card" aria-label="View Kent Sangster gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Kent Sangster performance photos
-                File needed: images/gallery/kent-sangster-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎷</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Kent Sangster</h4>
-                <p class="gallery-card-date">February 2018</p>
-                <p class="gallery-card-photographer">Photos by Judy White</p>
-              </div>
-            </a>
-            
-            <!-- Maria Manna -->
-            <a href="#" class="gallery-card" aria-label="View Maria Manna gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Maria Manna performance photos
-                File needed: images/gallery/maria-manna-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎤</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Maria Manna</h4>
-                <p class="gallery-card-date">February 2018</p>
-              </div>
-            </a>
-            
-            <!-- Two Blue -->
-            <a href="#" class="gallery-card" aria-label="View Two Blue gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Two Blue performance photos
-                File needed: images/gallery/two-blue-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎤</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Two Blue</h4>
-                <p class="gallery-card-date">April 2016</p>
-                <p class="gallery-card-photographer">Photos by Tracy O'Camera</p>
-              </div>
-            </a>
-            
+          <!-- Photo 1 -->
+          <div class="photo-item">
+            <img src="../images/gallery-1.jpg" alt="River City Big Band performing at a concert venue">
           </div>
-        </div>
-        
-        <!-- Show & Event Galleries -->
-        <div class="archive-galleries">
-          <h3 class="section-subtitle">Shows &amp; Events</h3>
           
-          <div class="gallery-grid">
-            
-            <!-- Show Posters -->
-            <a href="#" class="gallery-card" aria-label="View Show Posters gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Show poster collection
-                File needed: images/gallery/show-posters-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎭</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Show Posters</h4>
-                <p class="gallery-card-date">Collection</p>
-              </div>
-            </a>
-            
-            <!-- Fab Four -->
-            <a href="#" class="gallery-card" aria-label="View Fab Four gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Fab Four show photos
-                File needed: images/gallery/fab-four-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎸</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">The Fab Four</h4>
-                <p class="gallery-card-date">Beatles Tribute</p>
-              </div>
-            </a>
-            
-            <!-- Steely Dan -->
-            <a href="#" class="gallery-card" aria-label="View Steely Dan gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Steely Dan show photos
-                File needed: images/gallery/steely-dan-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎵</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Big Band Steely Dan</h4>
-                <p class="gallery-card-date">May 2018</p>
-              </div>
-            </a>
-            
-            <!-- RCBB 2015 -->
-            <a href="#" class="gallery-card" aria-label="View RCBB 2015 gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: 2015 season photos
-                File needed: images/gallery/rcbb-2015-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">📷</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">RCBB 2015</h4>
-                <p class="gallery-card-date">Season Highlights</p>
-              </div>
-            </a>
-            
-            <!-- River Recording 2013 -->
-            <a href="#" class="gallery-card" aria-label="View River Recording 2013 gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Recording session photos
-                File needed: images/gallery/river-recording-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎙️</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">River Recording</h4>
-                <p class="gallery-card-date">2013 Studio Session</p>
-              </div>
-            </a>
-            
-            <!-- WWII Show 2010 -->
-            <a href="#" class="gallery-card" aria-label="View WWII Show 2010 gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: WWII tribute show photos
-                File needed: images/gallery/wwii-show-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎖️</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">WWII Show</h4>
-                <p class="gallery-card-date">2010</p>
-              </div>
-            </a>
-            
-            <!-- Jazz City 2008 -->
-            <a href="#" class="gallery-card" aria-label="View Jazz City 2008 gallery">
-              <!-- 
-                IMAGE PLACEHOLDER: Jazz City festival photos
-                File needed: images/gallery/jazz-city-thumb.jpg
-              -->
-              <div class="gallery-card-image" aria-hidden="true">🎺</div>
-              <div class="gallery-card-content">
-                <h4 class="gallery-card-title">Jazz City</h4>
-                <p class="gallery-card-date">June 2008</p>
-              </div>
-            </a>
-            
+          <!-- Photo 2 -->
+          <div class="photo-item">
+            <img src="../images/gallery-2.jpg" alt="Big band musicians playing brass instruments on stage">
           </div>
+          
+          <!-- Photo 3 -->
+          <div class="photo-item">
+            <img src="../images/gallery-3.jpg" alt="The full ensemble during a live performance">
+          </div>
+          
+          <!-- Photo 4 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-4.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
+          <!-- Photo 5 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-5.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
+          <!-- Photo 6 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-6.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
+          <!-- Photo 7 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-7.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
+          <!-- Photo 8 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-8.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
+          <!-- Photo 9 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-9.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
+          <!-- Photo 10 -->
+          <div class="photo-item">
+            <!-- Replace placeholder with: <img src="../images/gallery/photo-10.jpg" alt="Description"> -->
+            <div class="photo-placeholder" aria-label="Photo placeholder">📷</div>
+          </div>
+          
         </div>
-        
       </div>
     </section>
 
@@ -475,6 +407,17 @@
   </main>
 
   <!-- ===========================================================================
+    LIGHTBOX MODAL
+    =========================================================================== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="lightbox-close" aria-label="Close photo viewer">&times;</button>
+    <button class="lightbox-prev" aria-label="Previous photo">&#10094;</button>
+    <button class="lightbox-next" aria-label="Next photo">&#10095;</button>
+    <img class="lightbox-image" src="" alt="">
+    <div class="lightbox-counter"></div>
+  </div>
+
+  <!-- ===========================================================================
     FOOTER
     =========================================================================== -->
   <footer class="site-footer">
@@ -489,11 +432,11 @@
           <h3>Quick Links</h3>
           <nav class="footer-nav" aria-label="Footer navigation">
             <a href="../" class="footer-link">Home</a>
-            <a href="../about/" class="footer-link">About</a>
+            <a href="../events/" class="footer-link">Events</a>
+            <a href="../media/" class="footer-link">Media</a>
             <a href="../musicians/" class="footer-link">Musicians</a>
             <a href="../guest-artists/" class="footer-link">Guest Artists</a>
-            <a href="../media/" class="footer-link">Media</a>
-            <a href="../events/" class="footer-link">Events</a>
+            <a href="../about/" class="footer-link">About</a>
             <a href="../contact/" class="footer-link">Contact</a>
           </nav>
         </div>
@@ -517,14 +460,14 @@
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
-            <a href="https://www.youtube.com/channel/UCY1wZKQK-I_2hkaqsRSdC-g" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/river_city_big_band/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
               </svg>
             </a>
-            <a href="https://soundcloud.com/therivercitybigband" class="social-link" aria-label="SoundCloud" target="_blank" rel="noopener noreferrer">
+            <a href="https://open.spotify.com/artist/52hEiwxDbKpkgjmu3PmJYm" class="social-link" aria-label="Spotify" target="_blank" rel="noopener noreferrer">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.084-.1zm-.899 1.463c-.06 0-.091.037-.104.094L0 14.479l.165.71c.013.057.045.094.09.094s.089-.037.099-.094l.225-.71-.225-.699c-.013-.057-.052-.091-.078-.091zm1.83-1.259c-.061 0-.12.045-.12.104l-.21 2.563.225 2.458c0 .06.045.104.106.104.061 0 .12-.044.12-.104l.24-2.458-.24-2.563c0-.06-.059-.104-.121-.104zm.945-.089c-.075 0-.135.06-.15.135l-.193 2.64.21 2.544c.016.077.075.138.149.138.075 0 .135-.061.15-.138l.24-2.544-.24-2.64c-.015-.075-.06-.135-.166-.135zm.96-.105c-.09 0-.165.075-.18.165l-.165 2.745.18 2.535c.015.09.075.149.165.149s.165-.06.18-.149l.195-2.535-.195-2.745c-.015-.09-.075-.165-.18-.165zm.975-.015c-.105 0-.18.075-.195.18l-.15 2.775.165 2.52c.015.105.09.18.18.18.105 0 .18-.075.195-.18l.18-2.52-.18-2.775c-.015-.105-.09-.18-.195-.18zm1.02-.015c-.12 0-.21.09-.225.21l-.135 2.79.15 2.505c.015.12.105.21.21.21.12 0 .21-.09.225-.21l.165-2.505-.165-2.79c-.015-.12-.105-.21-.225-.21zm1.035.18c-.135 0-.24.105-.24.24l-.12 2.61.135 2.49c0 .135.105.24.225.24.135 0 .24-.105.24-.24l.15-2.49-.15-2.61c0-.135-.105-.24-.24-.24zm1.05-.72c-.15 0-.27.12-.27.27l-.12 3.33.135 2.475c0 .15.12.27.255.27.15 0 .27-.12.27-.27l.135-2.475-.135-3.33c0-.15-.12-.27-.27-.27zm1.065.165c-.165 0-.285.12-.285.285l-.105 3.165.12 2.46c0 .165.12.285.27.285.165 0 .285-.12.3-.285l.12-2.46-.12-3.165c-.015-.165-.135-.285-.3-.285zm1.065-.165c-.18 0-.315.135-.315.315l-.09 3.33.105 2.445c0 .18.135.315.3.315.18 0 .315-.135.315-.315l.12-2.445-.12-3.33c0-.18-.135-.315-.315-.315zm1.095-.015c-.195 0-.345.15-.345.345l-.075 3.345.09 2.43c0 .195.15.345.33.345.195 0 .345-.15.345-.345l.105-2.43-.105-3.345c0-.195-.15-.345-.345-.345zm1.11.03c-.21 0-.36.15-.375.36l-.06 3.315.075 2.415c.015.21.165.36.36.36.21 0 .375-.15.375-.36l.09-2.415-.09-3.315c0-.21-.165-.36-.375-.36zm1.095-.09c-.225 0-.39.165-.39.39l-.06 3.405.075 2.4c0 .225.165.39.375.39.225 0 .39-.165.405-.39l.075-2.4-.075-3.405c-.015-.225-.18-.39-.405-.39zm1.14.045c-.24 0-.42.18-.42.42l-.045 3.36.06 2.385c0 .24.18.42.405.42.24 0 .42-.18.435-.42l.06-2.385-.06-3.36c-.015-.24-.195-.42-.435-.42zm1.11-.09c-.255 0-.45.195-.45.45l-.03 3.45.045 2.37c0 .255.195.45.435.45.255 0 .45-.195.465-.45l.045-2.37-.045-3.45c-.015-.255-.21-.45-.465-.45zm1.17.135c-.27 0-.48.21-.48.48l-.03 3.315.045 2.355c0 .27.21.48.465.48.27 0 .48-.21.48-.48l.045-2.355-.045-3.315c0-.27-.21-.48-.48-.48zm1.14-.12c-.285 0-.51.225-.51.51l-.015 3.435.03 2.34c0 .285.225.51.495.51.285 0 .51-.225.525-.51l.03-2.34-.03-3.435c-.015-.285-.24-.51-.525-.51zm1.185.165c-.3 0-.525.225-.54.525l-.015 3.27.03 2.325c.015.3.24.525.525.525.3 0 .54-.225.54-.525l.03-2.325-.03-3.27c0-.3-.24-.525-.54-.525zm4.11 1.605c-.555 0-1.08.12-1.56.33-.3-3.42-3.135-6.105-6.63-6.105-.9 0-1.755.18-2.535.51-.3.12-.375.24-.39.48v12.045c.015.255.195.465.45.495h10.665c1.92 0 3.48-1.56 3.48-3.48 0-1.92-1.56-3.48-3.48-3.48v-.795z"/>
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
               </svg>
             </a>
           </div>
@@ -562,6 +505,131 @@
     /* Dynamic Year */
     const yearSpan = document.getElementById('current-year');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    
+    /* =========================================================================
+       LIGHTBOX FUNCTIONALITY
+       ========================================================================= */
+    (function() {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = lightbox.querySelector('.lightbox-image');
+      const lightboxCounter = lightbox.querySelector('.lightbox-counter');
+      const closeBtn = lightbox.querySelector('.lightbox-close');
+      const prevBtn = lightbox.querySelector('.lightbox-prev');
+      const nextBtn = lightbox.querySelector('.lightbox-next');
+      
+      // Get all photo items that have actual images (not placeholders)
+      const photoItems = Array.from(document.querySelectorAll('.photo-item'));
+      const photos = photoItems.filter(item => item.querySelector('img'));
+      
+      let currentIndex = 0;
+      
+      // Open lightbox
+      function openLightbox(index) {
+        if (index < 0 || index >= photos.length) return;
+        
+        currentIndex = index;
+        const img = photos[currentIndex].querySelector('img');
+        
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt;
+        lightboxCounter.textContent = `${currentIndex + 1} / ${photos.length}`;
+        
+        lightbox.removeAttribute('hidden');
+        // Trigger reflow for animation
+        lightbox.offsetHeight;
+        lightbox.classList.add('is-open');
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Focus the lightbox for keyboard navigation
+        lightbox.focus();
+      }
+      
+      // Close lightbox
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+        
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+          lightbox.setAttribute('hidden', '');
+          lightboxImage.src = '';
+        }, 300);
+      }
+      
+      // Navigate to previous photo
+      function showPrevious() {
+        if (photos.length === 0) return;
+        currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+        updateLightboxImage();
+      }
+      
+      // Navigate to next photo
+      function showNext() {
+        if (photos.length === 0) return;
+        currentIndex = (currentIndex + 1) % photos.length;
+        updateLightboxImage();
+      }
+      
+      // Update the lightbox image
+      function updateLightboxImage() {
+        const img = photos[currentIndex].querySelector('img');
+        lightboxImage.style.opacity = '0';
+        
+        setTimeout(() => {
+          lightboxImage.src = img.src;
+          lightboxImage.alt = img.alt;
+          lightboxCounter.textContent = `${currentIndex + 1} / ${photos.length}`;
+          lightboxImage.style.opacity = '1';
+        }, 150);
+      }
+      
+      // Add click listeners to each photo
+      photos.forEach((photo, index) => {
+        photo.addEventListener('click', () => openLightbox(index));
+        photo.setAttribute('tabindex', '0');
+        photo.setAttribute('role', 'button');
+        photo.setAttribute('aria-label', 'View larger image');
+        
+        // Allow Enter key to open
+        photo.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(index);
+          }
+        });
+      });
+      
+      // Button event listeners
+      closeBtn.addEventListener('click', closeLightbox);
+      prevBtn.addEventListener('click', showPrevious);
+      nextBtn.addEventListener('click', showNext);
+      
+      // Click outside image to close
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('is-open')) return;
+        
+        switch (e.key) {
+          case 'Escape':
+            closeLightbox();
+            break;
+          case 'ArrowLeft':
+            showPrevious();
+            break;
+          case 'ArrowRight':
+            showNext();
+            break;
+        }
+      });
+    })();
   </script>
 </body>
 </html>
